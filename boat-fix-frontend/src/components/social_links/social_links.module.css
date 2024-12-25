@@ -1,0 +1,46 @@
+.icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.links {
+  display: flex;
+  justify-content: space-around;
+  width: 300px;
+  margin-top: 10px;
+  transition: 0.5s all ease-in-out;
+}
+.links img:hover {
+  color: #307957;
+  transform: perspective(1000px) rotateY(360deg);
+  transition: 0.5s all ease-in-out;
+}
+
+.links img {
+  width: 30px;
+  height: 30px;
+}
+span {
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+  .links {
+    display: flex;
+    justify-content: space-around;
+    width: 250px;
+    margin-top: 10px;
+    transition: 0.5s all ease-in-out;
+  }
+  .links img:hover {
+    color: #307957;
+    transform: perspective(1000px) rotateY(360deg);
+    transition: 0.5s all ease-in-out;
+  }
+
+  .links img {
+    width: 30px;
+    height: 30px;
+  }
+}

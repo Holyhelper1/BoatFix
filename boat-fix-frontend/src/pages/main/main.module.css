@@ -1,0 +1,57 @@
+.main_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color:  #d3e1e8;
+}
+
+.main_picture_box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: auto;
+}
+
+.main_picture_box img {
+  width: 100%;
+  object-fit: cover;
+  margin-top: -10rem;
+}
+
+.main_info_box {
+  display: flex;
+}
+
+.main_pre_info {
+  display: flex;
+  width: 850px;
+  margin-top: 500p;
+  backdrop-filter: blur(38px);
+  background-color: rgb(111, 216, 193, 0.3);
+}
+
+.main_pre_info p {
+  color: aliceblue;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.main_pre_info_title {
+  display: flex;
+  flex-direction: column;
+  background-image: url("http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcQ1VLbZWLB1F6ypD1HSzxzegkUHudxlHietcZBw3rEOasEOyuU2TWruFFooQscjc6FZkGRJL9Ss6R0uqcXR9g4");
+ 
+}
+
+
+
+
+@media (max-width: 500px) {
+
+  .main_picture_box img {
+    width: 100%;
+    object-fit: cover;
+    margin-top: 0rem;
+  }
+
+
+}
