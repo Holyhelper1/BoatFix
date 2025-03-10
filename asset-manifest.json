@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/BoatFix/static/css/main.ec83a8ec.css",
+    "main.css": "/BoatFix/static/css/main.282cd804.css",
     "main.js": "/BoatFix/static/js/main.2bbda1fa.js",
     "static/media/mainPicture3.png": "/BoatFix/static/media/mainPicture3.b6628d74a47bc9dbb974.png",
     "static/media/toolsImg.jpg": "/BoatFix/static/media/toolsImg.00befbddcb1234a44ec3.jpg",
@@ -8,11 +8,11 @@
     "static/media/Jura-Regular.ttf": "/BoatFix/static/media/Jura-Regular.0a4ac78909358bf67d67.ttf",
     "static/media/Jura-Bold.ttf": "/BoatFix/static/media/Jura-Bold.ebc36b579e40c6b39a15.ttf",
     "index.html": "/BoatFix/index.html",
-    "main.ec83a8ec.css.map": "/BoatFix/static/css/main.ec83a8ec.css.map",
+    "main.282cd804.css.map": "/BoatFix/static/css/main.282cd804.css.map",
     "main.2bbda1fa.js.map": "/BoatFix/static/js/main.2bbda1fa.js.map"
   },
   "entrypoints": [
-    "static/css/main.ec83a8ec.css",
+    "static/css/main.282cd804.css",
     "static/js/main.2bbda1fa.js"
   ]
 }
