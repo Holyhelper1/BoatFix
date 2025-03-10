@@ -79,14 +79,14 @@
 
 @media screen and (max-width: 768px) {
   .wrapper {
-    top: 38%;
+    top: 48%;
     left: 82%;
   }
 }
 
 @media screen and (max-width: 480px) {
   .wrapper {
-    top: 42%;
+    top: 52%;
     left: 50%;
   }
   .link_button {
@@ -108,7 +108,7 @@
 
 @media screen and (max-width: 380px) {
   .wrapper {
-    top: 55%;
+    top: 58%;
     left: 50%;
   }
 }
