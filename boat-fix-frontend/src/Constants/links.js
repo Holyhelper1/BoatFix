@@ -1,5 +1,5 @@
 export const LINKS = {
-    MAIN: "/",
+    MAIN: "/BoatFix",
     ORDER: "/order",
     // REGISTRATION: "/registration",
     // CONTACTS: "/contacts",

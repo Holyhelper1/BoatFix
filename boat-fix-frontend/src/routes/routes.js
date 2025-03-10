@@ -5,7 +5,7 @@
 import { Main, Order } from "../pages";
 
 export const routes = [
-	{ path: '/', element: <Main /> },
+	{ path: '/BoatFix', element: <Main /> },
 	{ path: '/order', element: <Order /> },
 	// { path: '/registration', element: <Registration /> },
 	// { path: '/contacts', element: <Contacts /> },
