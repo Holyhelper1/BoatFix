@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-import { BoatFixWeb } from "./boat-fix-web";
-import reportWebVitals from "./reportWebVitals";
+import { App } from "./app";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
@@ -11,9 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <BoatFixWeb />
+      <App />
     </Provider>
   </BrowserRouter>
 );
-
-reportWebVitals();

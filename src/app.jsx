@@ -2,8 +2,9 @@ import { Route, Routes } from "react-router";
 import style from "./boat-fix-web.module.css";
 import { Footer, Header } from "./components";
 import { routes } from "./routes/routes";
+// import { Main } from "./pages";
 
-export const BoatFixWeb = () => {
+export const App = () => {
   return (
     <div className={style.web_container}>
       <Header />

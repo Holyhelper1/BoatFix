@@ -1,21 +1,94 @@
-@font-face {
-    font-family: jura;
-    src: url("../../fonts/jura/Jura-Regular.ttf");
-  }
-  
+.wrapper {
+  position: fixed;
+  top: 26%;
+  left: 82%;
+  transform: translate(-50%, -50%);
+}
+
+.link_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.link_button {
+  display: block;
+  width: 250px;
+  height: 50px;
+  font-size: 1.2rem;
+  line-height: 50px;
+  font-weight: bold;
+  font-family: jura;
+  text-decoration: none;
+  background: #333;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 3px solid #333;
+  transition: all 0.35s;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  border: 3px solid transparent;
+  position: absolute;
+  transform: rotate(45deg);
+  right: 0;
+  top: 0;
+  z-index: -1;
+  transition: all 0.35s;
+}
+
+.icon svg {
+  width: 30px;
+  position: absolute;
+  top: calc(50% - 15px);
+  left: calc(50% - 15px);
+  transform: rotate(-45deg);
+  fill: #2ecc71;
+  transition: all 0.35s;
+}
+
+.link_button:hover {
+  width: 200px;
+  border: 3px solid #2ecc71;
+  background-color: rgba(70, 104, 80, 0.7);
+  color: #2ecc71;
+}
+
+.link_button:hover + .icon {
+  border: 3px solid #2ecc71;
+  right: -25%;
+}
+.link_button:active + .icon {
+  transform: scale(-0.9);
+}
+
+@media screen and (max-width: 1024px) {
   .wrapper {
-    position: fixed;
-    top: 22%;
+    top: 23%;
+  }
+  .link_button {
+    width: 200px;
+    height: 40px;
+    line-height: 30px;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    top: 38%;
     left: 82%;
-    font-family: jura;
-    transform: translate(-50%, -50%);
   }
-  
-  .link_wrapper {
-    display: flex;
-    align-items: center;
+}
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    top: 42%;
+    left: 50%;
   }
-  
   .link_button {
     display: block;
     width: 250px;
@@ -31,66 +104,11 @@
     border: 3px solid #333;
     transition: all 0.35s;
   }
-  
-  .icon {
-    width: 50px;
-    height: 50px;
-    border: 3px solid transparent;
-    position: absolute;
-    transform: rotate(45deg);
-    right: 0;
-    top: 0;
-    z-index: -1;
-    transition: all 0.35s;
+}
+
+@media screen and (max-width: 380px) {
+  .wrapper {
+    top: 55%;
+    left: 50%;
   }
-  
-  .icon svg {
-    width: 30px;
-    position: absolute;
-    top: calc(50% - 15px);
-    left: calc(50% - 15px);
-    transform: rotate(-45deg);
-    fill: #2ecc71;
-    transition: all 0.35s;
-  }
-  
-  .link_button:hover {
-    width: 200px;
-    border: 3px solid #2ecc71;
-    background-color: rgba(70, 104, 80, 0.7);
-    color: #2ecc71;
-  }
-  
-  .link_button:hover + .icon {
-    border: 3px solid #2ecc71;
-    right: -25%;
-  }
-  .link_button:active + .icon {
-    transform: scale(-0.9);
-  }
-  
-  @media screen and (max-width: 480px) {
-    .wrapper {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      font-family: jura;
-      transform: translate(-50%, -50%);
-    }
-    .link_button {
-      display: block;
-      width: 250px;
-      height: 50px;
-      line-height: 50px;
-      font-weight: bold;
-      text-decoration: none;
-      background: #333;
-      text-align: center;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border: 3px solid #333;
-      transition: all 0.35s;
-    }
-  }
-  
+}

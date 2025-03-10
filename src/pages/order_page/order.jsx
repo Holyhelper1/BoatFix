@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { UploadButton } from "../../components";
 import styles from "./order.module.css";
-import  toolsImg  from "../../image/toolsImg.jpg";
+import toolsImg from "../../image/toolsImg.jpg";
 
 export const Order = () => {
   const [name, setName] = useState("");
@@ -12,7 +12,7 @@ export const Order = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
+
     console.log({
       name,
       phone,
@@ -70,20 +70,17 @@ export const Order = () => {
           </div>
           <div className={styles.buttonContainer}>
             <label className={styles.fileInput}>
-              <input type="file" name="file" accept="image/*,image/jpeg"  />
+              <input type="file" name="file" accept="image/*,image/jpeg" />
             </label>
 
             <UploadButton type="submit" onChange={(file) => setFile(file)}>
-              Отправить{" "}
+              Отправить
             </UploadButton>
           </div>
         </div>
       </form>
       <div className={styles.imageContainer}>
-        <img
-          src={toolsImg}
-          alt="order"
-        />
+        <img src={toolsImg} alt="order" />
       </div>
     </div>
   );
