@@ -2,6 +2,7 @@ import styles from "./header.module.css";
 import logo3 from "../../image/logo3.png";
 import { SocialLinks } from "../social_links/social_links";
 import { Link } from "react-router-dom";
+import { LINKS } from "../../Constants/links";
 export const Header = () => {
   return (
     <div className={styles.header}>
@@ -13,13 +14,15 @@ export const Header = () => {
             <li> Пн-Пт: 9:00-18:00</li>
           </ul>
           <div className={styles.header_bottom_logo}>
+          <Link to={LINKS.MAIN}>
             <img className={styles.logo} src={logo3} alt="logo boat" />
+            </Link>
             <div>Ремонт ПВХ лодок в Томске</div>
           </div>
           <hr className={styles.hr_header}></hr>
           <nav className={styles.header_nav_container}>
             <ul>
-              <Link to="/BoatFix">
+              <Link to={LINKS.MAIN}>
                 <li>Главная</li>
               </Link>
               <li>Примеры работ</li>

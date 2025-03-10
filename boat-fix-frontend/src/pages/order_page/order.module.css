@@ -12,6 +12,7 @@
   flex-direction: row;
   justify-content: space-between;
   font-family: jura;
+  height: 100%;
 }
 .feedbackForm {
   display: flex;
@@ -167,10 +168,34 @@ form textarea {
     flex-direction: column;
     align-items: center;
   }
-  .feedbackForm {
+
+  .form_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
     width: 100%;
+    /* background-color: aqua; */
+
+  }
+  .feedbackForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
     border-right: none;
     border-bottom: 1px solid #25555e;
+  }
+  .form_data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
   }
 
   .form_title {
@@ -187,7 +212,9 @@ form textarea {
     margin: 10px 0 10px 0;
   }
   .formGroup_middle input {
+    display:  flex;
     width: 70%; 
+    /* background-color: aqua; */
     /* доделать */
   }
   .formGroup_bottom {

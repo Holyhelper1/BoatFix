@@ -12,7 +12,7 @@ export const Order = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Здесь вы можете обрабатывать отправку формы
+   
     console.log({
       name,
       phone,
@@ -38,7 +38,7 @@ export const Order = () => {
             />
           </div>
           <div className={styles.formGroup_middle}>
-            <div>
+            <div className={styles.form_data}>
               <input
                 type="tel"
                 id="phone"
@@ -48,7 +48,7 @@ export const Order = () => {
                 required
               />
             </div>
-            <div>
+            <div className={styles.form_data}>
               <input
                 type="email"
                 id="email"
@@ -73,7 +73,7 @@ export const Order = () => {
               <input type="file" name="file" accept="image/*,image/jpeg"  />
             </label>
 
-            <UploadButton type="submit" onFileChange={(file) => setFile(file)}>
+            <UploadButton type="submit" onChange={(file) => setFile(file)}>
               Отправить{" "}
             </UploadButton>
           </div>
