@@ -9,7 +9,7 @@ export const WeatherBlock = () => {
 	const [weatherIcon, setWeatherIcon] = useState('');
 
 	useEffect(() => {
-		fetch('http://api.sypexgeo.net/json/')
+		fetch('https://api.sypexgeo.net/json/')
 			.then((response) => response.json())
 			.then((data) => {
 				const cityName = data.city.name_en;
@@ -18,7 +18,7 @@ export const WeatherBlock = () => {
 			})
 			.then((cityName) => {
 				fetch(
-					`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&lang=ru&appid=acd4f346c669d7400f4dbbeb7f1350e0`,
+					`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&lang=ru&appid=acd4f346c669d7400f4dbbeb7f1350e0`,
 				)
 					.then((res) => res.json())
 					.then(({ main, name, weather }) => {

@@ -1,5 +1,5 @@
 .main_container {
-  padding: 40px;
+  padding: 60px;
 }
 @media screen and (max-width: 1024px) {
   .main_container{

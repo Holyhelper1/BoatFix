@@ -11,10 +11,9 @@ export const Footer = () => {
       </div>
       <div className={styles.footer_list}>
         <ul className={styles.footer_list_item}>
-        <Link to={LINKS.MAIN}>
-                <li>Главная</li>
-              </Link>
-          
+          <Link to={LINKS.MAIN}>
+            <li>Главная</li>
+          </Link>
           <li>Примеры работ</li>
           <li>О нас</li>
           <li>Контакты</li>
