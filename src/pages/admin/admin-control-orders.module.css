@@ -5,5 +5,135 @@
     width: 80%;
     margin: 0 auto;
     background-color: rgba(57, 136, 211, 0.589);
-    height: 100vh;
+    /* height: 100vh; */
+    padding: 20px;
+}
+
+.order_list {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+}
+
+.order_item {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 15px;
+}
+
+.order_details {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.order_images {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap; /* Позволяет изображениям переноситься на новую строку */
+}
+
+.order_image {
+    width: 200px; 
+    height: auto;
+    border-radius: 4px;
+}
+
+.delete_button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete_button:hover {
+    background-color: #ff1a1a;
+}
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Поверх других элементов */
+}
+.order_phone {
+    text-decoration: none;
+    color: #4ec708;
+    font-weight: bold;
+}
+
+.modal_image {
+    max-width: 90%; /* Ограничиваем ширину изображения */
+    max-height: 90%; /* Ограничиваем высоту изображения */
+    border-radius: 8px; /* Скругление углов изображения */
+}
+
+.close_button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none; /* Прозрачный фон для кнопки */
+    border: none; /* Убираем стандартные границы у кнопки */
+    color: white; /* Цвет текста кнопки */
+    font-size: 24px; /* Размер шрифта для кнопки */
+    cursor: pointer; /* Курсор указывает на кликабельность */
+}
+
+
+/* Медиазапрос для экранов меньшей ширины */
+@media (max-width: 1024px) {
+    .admin_control_container {
+        width: 90%; /* Увеличиваем ширину для более узких экранов */
+    }
+
+    .order_image {
+        width: 180px; /* Слегка уменьшаем размер изображений */
+    }
+}
+
+@media (max-width: 768px) {
+    .order_item {
+        padding: 10px; /* Уменьшаем внутренние отступы */
+    }
+
+    .order_image {
+        width: 150px; /* Еще меньше изображений */
+    }
+
+    .delete_button {
+        padding: 8px 10px; /* Уменьшаем размеры кнопки */
+    }
+}
+
+@media (max-width: 360px) {
+    .admin_control_container {
+        padding: 10px; /* Снижаем отступы в контейнере */
+    }
+
+    .order_item {
+        margin: 5px 0; /* Уменьшаем отступ между элементами */
+    }
+
+    .order_image {
+        width: 100%; /* Изображения занимают всю ширину родителя */
+        max-width: 150px; /* Устанавливаем максимальную ширину для изображений */
+    }
+
+    .delete_button {
+        width: 100%; /* Кнопка занимает всю ширину */
+        padding: 10px; /* Увеличиваем отступы для удобства */
+    }
 }
