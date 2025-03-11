@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["https://boatfixtomsk.web.app"],
+    "method": ["GET", "POST", "PUT", "DELETE"],
+    "maxAgeSeconds": 3600
+  }
+]
