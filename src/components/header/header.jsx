@@ -3,15 +3,16 @@ import logo3 from "../../image/logo3.png";
 import { SocialLinks } from "../social_links/social_links";
 import { Link } from "react-router-dom";
 import { LINKS } from "../../Constants/links";
+import { scrollToSection } from "../../Utils/smooth-scroll";
 export const Header = () => {
   return (
-    <header className={styles.header}>
+    <header className={styles.header} id="main">
       
         <div className={styles.header_top}>
           <ul className={styles.header_top_text}>
-            <li>г. Томск, ул. Пушкина, д. 10</li>
+            <li>г. Томск, ул. Черноморская, д. 44/3</li>
             <li>Телефон: <a className={styles.header_phone} href="tel:+79039554324"> +7 (903) 955-43-24 </a></li>
-            <time datetime="Mo-Fr 09:00-18:00">Пн-Пт: 9:00-18:00</time>
+            <time dateTime="Mo-Fr 09:00-18:00">Пн-Пт: 9:00-18:00</time>
           </ul>
           <div className={styles.header_bottom_logo}>
             <Link to={LINKS.MAIN}>
@@ -25,9 +26,13 @@ export const Header = () => {
               <Link to={LINKS.MAIN}>
                 <li>Главная</li>
               </Link>
+              <Link to={LINKS.MAIN} onClick={() => scrollToSection("main")}>
               <li>Примеры работ</li>
+              </Link>
               <li>О нас</li>
+              <Link to={LINKS.ABOUT}>
               <li>Контакты</li>
+              </Link>
             </ul>
           </nav>
         </div>

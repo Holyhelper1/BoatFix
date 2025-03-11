@@ -1,6 +1,7 @@
 export const LINKS = {
     MAIN: "/BoatFix",
     ORDER: "/order",
+    ABOUT: "/contacts",
     // REGISTRATION: "/registration",
     // CONTACTS: "/contacts",
     // USER_ACCOUNT: "/user_account/:login/:id",

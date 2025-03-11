@@ -1,0 +1,55 @@
+.contacts_container {
+  display: flex;
+  width: 60%;
+  flex-direction: column;
+  margin: 40px;
+}
+.contacts_phone {
+  text-decoration: none;
+  color: #2ecc71;
+}
+
+.contacts_info {
+  width: 100%;
+  background-color: #9ebecdb9;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 40px 0px;
+}
+
+.contacts_map {
+  width: 100%;
+  border-radius: 30px;
+}
+
+@media screen and (max-width: 1500px) {
+  .contacts_container {
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+  }
+  .contacts_info {
+    width: 80%;
+    margin: 0;
+    padding: 10px;
+    font-weight: bold;
+  }
+
+  .contacts_map {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .contacts_info {
+    width: 90%;
+  }
+
+  .contacts_map {
+    width: 90%;
+  }
+}

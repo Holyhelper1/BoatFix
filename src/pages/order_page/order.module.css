@@ -155,11 +155,13 @@ form textarea {
   color: #131d19;
 }
 
-
+.imageContainer {
+  padding: 0;
+}
 
 .imageContainer img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
 }
 
