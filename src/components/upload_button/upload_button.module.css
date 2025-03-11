@@ -1,5 +1,11 @@
+@font-face {
+  font-family: jura;
+  src: url("../../fonts/jura/Jura-Regular.ttf");
+}
+
 .button_container {
     display: flex;
+    font-size: 29px;
   }
   
   .button {
@@ -10,6 +16,7 @@
     border-radius: 4px;
     padding: 0.4rem 1rem;
     font-size: 1rem;
+    font-family: jura;
     font-weight: 500;
     cursor: pointer;
     overflow: hidden;

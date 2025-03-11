@@ -9,7 +9,7 @@ export const Contacts = () => {
       </Link>
       <ul className={styles.contacts_info}>
         <li>Контакты:</li>
-        <li>Адрес: г. Томск, ул. Черноморская, д. 44/3</li>
+        <li>Адрес:<a className={styles.contacts_address} href="https://yandex.ru/maps/-/CHBTzK1z" target="_blank" rel="noopener noreferrer"> г. Томск, ул. Черноморская, д. 44/3</a></li>
         <li>Телефон:<a className={styles.contacts_phone} href="tel:+79039554324"> +7 (903) 955-43-24</a></li>
       </ul>
       <iframe

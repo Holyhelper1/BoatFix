@@ -8,6 +8,10 @@
   text-decoration: none;
   color: #2ecc71;
 }
+.contacts_address {
+  text-decoration: none;
+  color: #abedfd;
+}
 
 .contacts_info {
   width: 100%;
