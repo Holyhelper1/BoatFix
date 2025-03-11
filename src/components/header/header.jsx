@@ -30,7 +30,7 @@ export const Header = () => {
               <li>Примеры работ</li>
               </Link>
               <li>О нас</li>
-              <Link to={LINKS.ABOUT}>
+              <Link to={LINKS.CONTACTS}>
               <li>Контакты</li>
               </Link>
             </ul>

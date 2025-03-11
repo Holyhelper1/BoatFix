@@ -1,7 +1,0 @@
-{
-  "hosting": {
-    "site": "boatfixtomsk",
-    "public": "build",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
-  }
-}

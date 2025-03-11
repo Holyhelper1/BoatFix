@@ -165,6 +165,20 @@ form textarea {
   object-fit: cover;
 }
 
+.previewImages {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #8f9c83;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #131d19;
+}
+
 @media (max-width: 680px) {
   .order_container {
     flex-direction: column;

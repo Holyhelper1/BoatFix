@@ -18,11 +18,10 @@ export const Footer = () => {
           <Link to={LINKS.ORDER}>
             <li>Оставить заявку</li>
           </Link>
-          <Link to={LINKS.ABOUT}>
-            <li>О нас</li>
+          <li>О нас</li>
+          <Link to={LINKS.CONTACTS}>
+            <li>Контакты</li>
           </Link>
-
-          <li>Контакты</li>
         </ul>
       </div>
       <div className={styles.footer_text}>
