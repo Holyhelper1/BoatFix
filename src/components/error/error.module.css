@@ -1,0 +1,15 @@
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    height: 150px;
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: aliceblue;
+    width: 60%;
+    padding-bottom: 230px;
+}
+

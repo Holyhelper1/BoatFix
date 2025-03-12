@@ -1,0 +1,10 @@
+import { useSelector } from "react-redux";
+import { Error } from "../error/error";
+
+export const PrivateContent = ({ children, serverError = null }) => {
+	const adminIsLogin = useSelector((state) => state.auth.isAuthenticated);
+	const accessError = adminIsLogin  ? null : "Доступ запрещён, пожалуйста авторизируйтесь!";
+	const error =  accessError;   
+
+	return error ? <Error >{error}</Error> : children;
+};
