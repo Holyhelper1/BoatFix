@@ -28,7 +28,7 @@ export const WeatherBlock = () => {
 
     const fetchLocation = async () => {
       try {
-        const response = await fetch("https://api.sypex2geo.net/json/");
+        const response = await fetch("https://api.sypexgeo.net/json/");
         if (!response.ok) {
           throw new Error("Не удалось получить данные по местоположению");
         }
