@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./admin-login.module.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+import { Button } from "../button/button";
+import { UploadButton } from "../upload_button/upload_button";
 
 export const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -15,10 +17,9 @@ export const AdminLogin = () => {
     e.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      // Успешно вошли
+
       console.log(userCredential);
 
-      // Перенаправляем пользователя на страницу управления заказами
       navigate("/admin/control-orders");
     } catch (error) {
       console.error("Ошибка входа:", error);
@@ -26,11 +27,12 @@ export const AdminLogin = () => {
     }
   };
 
-  return (
+   return (
     <>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ color: "red", textAlign: 'center' }}>{error}</p>}
       <form className={styles.loginForm} onSubmit={handleSubmit}>
         <input
+          className={styles.inputField}
           type="email"
           placeholder="Email"
           value={email}
@@ -38,16 +40,18 @@ export const AdminLogin = () => {
           required
         />
         <input
+          className={styles.inputField}
           type="password"
           placeholder="Пароль"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Войти</button>
+        <UploadButton>Войти</UploadButton>
       </form>
     </>
   );
+  
 };
 
 

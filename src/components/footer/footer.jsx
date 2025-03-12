@@ -5,6 +5,8 @@ import { LINKS } from "../../Constants/links";
 import { WeatherBlock } from "../weather-block/weather-block";
 import { scrollToSection } from "../../Utils/smooth-scroll";
 export const Footer = () => {
+
+  const thisYear = new Date().getFullYear();
   return (
     <div className={styles.footer_container}>
       <div className={styles.footer_social}>
@@ -26,7 +28,7 @@ export const Footer = () => {
       </div>
       <div className={styles.footer_text}>
         <WeatherBlock />
-        <p> © 2020. Все права защищены.</p>
+        <p> © {thisYear}. Все права защищены.</p>
       </div>
     </div>
   );

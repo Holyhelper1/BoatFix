@@ -1,9 +1,11 @@
 .main_container {
   padding: 60px;
+  padding-bottom: 120px;
 }
 @media screen and (max-width: 1024px) {
   .main_container{
     padding: 20px;
+    padding-bottom: 210px;
   }
 }
 

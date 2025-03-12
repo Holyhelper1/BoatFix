@@ -5,8 +5,8 @@
     width: 80%;
     margin: 0 auto;
     background-color: rgba(57, 136, 211, 0.589);
-    /* height: 100vh; */
     padding: 20px;
+    padding-bottom: 250px;
 }
 
 .order_list {
@@ -67,7 +67,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999; /* Поверх других элементов */
+    z-index: 5; /* Поверх других элементов */
 }
 .order_phone {
     text-decoration: none;
