@@ -4,9 +4,15 @@
     align-items: center;
     width: 80%;
     margin: 0 auto;
-    background-color: rgba(57, 136, 211, 0.589);
+    background-color: rgba(57, 136, 211, 0.767);
     padding: 20px;
     padding-bottom: 250px;
+}
+.admin_control_tittle {
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .order_list {
@@ -18,8 +24,9 @@
 .order_item {
     display: flex;
     flex-direction: column;
-    background-color: white;
-    border: 1px solid #ccc;
+    background-color: rgba(66, 66, 66, 0.719);
+    border: 1px solid #fff;
+    color: aliceblue;
     border-radius: 8px;
     margin: 10px 0;
     padding: 15px;
@@ -28,6 +35,7 @@
 .order_details {
     font-weight: bold;
     margin-bottom: 10px;
+    /* background-color: #4ec708; */
 }
 
 .order_images {
@@ -92,6 +100,18 @@
     cursor: pointer; /* Курсор указывает на кликабельность */
 }
 
+.admin_control_empty {
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+    color: #fff;
+    max-width: 500px;
+    font-weight: bold;
+    font-size: 30px;
+    background: #2a793e;
+}
+
 
 /* Медиазапрос для экранов меньшей ширины */
 @media (max-width: 1024px) {
@@ -115,6 +135,10 @@
 
     .delete_button {
         padding: 8px 10px; /* Уменьшаем размеры кнопки */
+    }
+
+    .admin_control_empty {
+        font-size: 20px;
     }
 }
 

@@ -29,7 +29,7 @@ export const Header = () => {
               <Link to={LINKS.MAIN} onClick={() => scrollToSection("main")}>
               <li>Примеры работ</li>
               </Link>
-              <li>О нас</li>
+              {/* <li>О нас</li> */}
               <Link to={LINKS.CONTACTS}>
               <li>Контакты</li>
               </Link>

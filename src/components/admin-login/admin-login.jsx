@@ -10,6 +10,7 @@ export const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState("password");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,10 +18,8 @@ export const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-
-      // console.log(userCredential);
-
+      await signInWithEmailAndPassword(auth, email, password);      
+      
       dispatch({ type: 'LOGIN' });
       navigate("/admin/control-orders");
     } catch (error) {
@@ -32,6 +31,8 @@ export const AdminLogin = () => {
    return (
     <>
       {error && <p style={{ color: "red", textAlign: 'center' }}>{error}</p>}
+      <div className={styles.admin_login_wrapper}>
+
       <form className={styles.loginForm} onSubmit={handleSubmit}>
         <input
           className={styles.inputField}
@@ -43,14 +44,24 @@ export const AdminLogin = () => {
         />
         <input
           className={styles.inputField}
-          type="password"
+          type={showPassword}
           placeholder="Пароль"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        <span
+            className={styles.passwordToggle}
+            onClick={() =>
+              setShowPassword(showPassword === "password" ? "text" : "password")
+            }
+          >
+            {showPassword === "password" ? "👁" : "👁️"}
+          </span>
         <UploadButton>Войти</UploadButton>
       </form>
+      </div>
+      
     </>
   );
   

@@ -20,7 +20,7 @@ export const Footer = () => {
           <Link to={LINKS.ORDER}>
             <li>Оставить заявку</li>
           </Link>
-          <li>О нас</li>
+          {/* <li>О нас</li> */}
           <Link to={LINKS.CONTACTS}>
             <li>Контакты</li>
           </Link>
