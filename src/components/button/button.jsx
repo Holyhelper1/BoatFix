@@ -26,7 +26,7 @@ export const Button = ({ ...props }) => {
       style={{ opacity: isVisible ? 1 : 0, transition: "opacity 0.5s" }}
     >
       <div className={styles.link_wrapper}>
-        <button className={styles.link_button} href={props.href}>
+        <button className={styles.link_button} href={props.href} onClick={props.onClick}>
           {props.children}
         </button>
         <div className={styles.icon}>

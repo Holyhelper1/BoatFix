@@ -27,6 +27,7 @@
     background-color: rgba(66, 66, 66, 0.719);
     border: 1px solid #fff;
     color: aliceblue;
+    line-height: 1.5;
     border-radius: 8px;
     margin: 10px 0;
     padding: 15px;
@@ -35,19 +36,25 @@
 .order_details {
     font-weight: bold;
     margin-bottom: 10px;
-    /* background-color: #4ec708; */
+}
+
+.order_date_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .order_images {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
-    flex-wrap: wrap; /* Позволяет изображениям переноситься на новую строку */
+    flex-wrap: wrap;
 }
 
 .order_image {
-    width: 200px; 
-    height: auto;
+    max-width: 250px; 
+   max-height: 250px;
+    size: cover;
     border-radius: 4px;
 }
 
@@ -55,6 +62,8 @@
     background-color: #ff4d4d;
     color: white;
     border: none;
+    font-weight: bold;
+    font-family: jura, sans-serif;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;

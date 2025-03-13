@@ -1,15 +1,21 @@
+.error_container{
+    height: 100vh;
+    padding-top: 20px;
+}
 .error {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     margin: 0 auto;
-    height: 150px;
+    height: 80px;
     color: red;
     font-size: 20px;
     font-weight: bold;
     background-color: aliceblue;
+    border-radius: 20px;
     width: 60%;
-    padding-bottom: 230px;
+    padding-top: 20px;
+    /* padding-bottom: 230px; */
 }
 

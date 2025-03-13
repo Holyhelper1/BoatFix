@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styles from "./order.module.css";
-import cloudinaryConfig from '../../cloudinaryConfig'; // Импортируйте вашу конфигурацию Cloudinary
-import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore"; // Импортируем Firestore
-
-import toolsImg from "../../image/toolsImg.jpg"; // Импортируйте изображение для отображения
+import cloudinaryConfig from '../../cloudinaryConfig';
+import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import toolsImg from "../../image/toolsImg.jpg";
 import { UploadButton } from "../../components";
 
+import MaskedInput from 'react-text-mask';
 export const Order = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -26,15 +26,14 @@ export const Order = () => {
       for (const file of files) {
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", cloudinaryConfig.uploadPreset); // Замените на ваше значение uploadPreset
+        formData.append("upload_preset", cloudinaryConfig.uploadPreset);
 
         const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloudName}/image/upload`, formData);
         const url = response.data.secure_url;
         customerImages.push(url);
       }
 
-      // eslint-disable-next-line  
-      const docRef = await addDoc(collection(db, "orders"), {
+       await addDoc(collection(db, "orders"), {
         customerName: name,
         customerPhone: phone,
         customerEmail: email,
@@ -71,6 +70,9 @@ export const Order = () => {
     ]);
   };
 
+  console.log("phone", phone);
+  
+
   return (
     <div className={styles.order_container}>
       <form className={styles.feedbackForm} onSubmit={handleSubmit}>
@@ -88,20 +90,43 @@ export const Order = () => {
           </div>
           <div className={styles.formGroup_middle}>
             <div className={styles.form_data}>
-              <input
+              {/* <input
                 type="tel"
+                maxLength="10"
                 id="phone"
-                placeholder="Ваш номер телефона *"
+                placeholder="Тел.: +7(___)___-__-__"
+                value={phone}
+                pattern="(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?" title="Введите номер телефона в формате +7 XXX XXX XX XX" 
+                onChange={(e) => setPhone(`${(e.target.value).replace(/[^0-9]/g, '')}`)}
+                required
+              /> */}
+
+
+              {/* <PhoneInput
+                type="tel"
+                 mask="+7(999) 999-9999"
+                 title="Введите номер телефона в формате +7 XXX XXX XX XX"
+                id="phone"
+                placeholder="Тел.: +7(___)___-__-__"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
-              />
+              /> */}
+            <MaskedInput
+                mask={['+', '7', '(', /[0-9]/, /[0-9]/, /[0-9]/, ')', ' ', /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/]}
+                placeholder="Тел.: +7(___) ___-__-__"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+            />
+
             </div>
             <div className={styles.form_data}>
 
             <input
                 type="email"
                 id="email"
+                title="Введите корректную электронную почту"
                 placeholder="Ваш Email *"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -114,6 +139,7 @@ export const Order = () => {
             <textarea
               id="question"
               placeholder="Вашe сообщение *"
+              title="Опишите повреждение лодки"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               required

@@ -22,7 +22,6 @@
   }
   
   .inputField {
-    /* position: relative; */
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -35,22 +34,6 @@
     border-color: #00ff9d;
     outline: none;
   }
-  
-  .submitButton {
-    padding: 10px;
-    background-color: #1faf1a; 
-    color: white;
-    border: none; 
-    font-family: jura;
-    border-radius: 3px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s; 
-  }
-  
-  .submitButton:hover {
-    background-color: #00b318; 
-  }
 
   .passwordToggle {
     position: absolute;
@@ -59,8 +42,6 @@
     cursor: pointer;
     top: 93px;
     right: 30px;
-    /* margin-left: 220px;
-    margin-top: -30px; */
     font-size: 22px;
     color: #626263ad;
     width: 100px;
