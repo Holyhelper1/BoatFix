@@ -103,7 +103,7 @@ export const AdminControlOrders = () => {
       <PrivateContent>
         {orders.length > 0 ? (
           <div className={styles.admin_control_container}>
-            <h1 className={styles.admin_control_tittle}>Активные заказы</h1>
+            <h2 className={styles.admin_control_tittle}>Активные заказы</h2>
             {isLoading && <div>Загрузка заказов...</div>}
             <Button
               className={styles.check_new_orders}
