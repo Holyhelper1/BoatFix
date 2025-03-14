@@ -17,9 +17,9 @@ export const Header = () => {
               +7 (903) 955-43-24{" "}
             </a>{" "}
             <br></br>
-            <a className={styles.header_phone} href="tel:8382224324">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              8(382) 224-324
+            <a className={styles.header_phone} href="tel:83822224324">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              8(382) 222-43-24
             </a>
           </li>
           <time dateTime="Mo-Fr 09:00-18:00">Пн-Пт: 9:00-18:00</time>
