@@ -1,4 +1,5 @@
 # https://www.robotstxt.org/robotstxt.html
-User-agent: *
+User-agent: Yandex
+User-agent: Googlebot
 Disallow: /adminroom/
-Disallow: /admin/control-orders/
+Disallow: /admin/
