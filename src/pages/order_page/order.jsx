@@ -124,7 +124,6 @@ export const Order = () => {
                 placeholder="Ваш Email *"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                // required
               />
             </div>
           </div>
@@ -158,8 +157,6 @@ export const Order = () => {
                 <img
                   src={url}
                   alt={`Preview ${index + 1}`}
-                  // width={90}
-                  // height="auto"
                 />
                 <button
                   className={styles.order_image_closeButton}

@@ -137,7 +137,7 @@ export const AdminControlOrders = () => {
                         {`${order.customerPhone}`}
                       </a>
                       <br></br>
-                      Почта: {order.customerEmail}
+                      Почта: {order.customerEmail ? order.customerEmail : "почта не указана"}
                     </div>
                     <div>Описание проблемы: {order.customerMessage}</div>
                   </div>

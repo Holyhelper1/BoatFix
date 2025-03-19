@@ -19,15 +19,12 @@
   flex-direction: column;
   justify-content: center;
   width: 43%;
-  
+
   padding: 2rem;
   background-color: #4b6c63;
   border-right: 1px solid #25555e;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-
-
-
 
 .form_box {
   display: flex;
@@ -40,14 +37,12 @@
 form input,
 form textarea {
   font-family: jura;
-  /* font-size: rem; */
 }
 
 .form_title {
   font-size: 2.2rem;
   color: #131d19;
   font-family: juraBold;
-  /* margin-bottom: 1.5rem; */
 }
 
 .formGroup_top {
@@ -67,7 +62,6 @@ form textarea {
   width: 70%;
   padding: 0.75rem 1rem;
   border-bottom: 2px solid #8f9c83;
-  /* border-left: 2px solid #8f9c83; */
   margin: 10px 0 10px 0;
 }
 
@@ -153,18 +147,11 @@ form textarea {
 }
 
 .order_tools_imageContainer {
-  /* width: 100%;
-  height: auto; */
   width: 100%;
   height: 100%;
 }
 
 .order_tools_imageContainer img {
-  /* display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  overflow: hidden; */
   display: block;
   width: 100%;
   height: 100%;
@@ -184,7 +171,7 @@ form textarea {
   color: #131d19;
 }
 
-.previewImage{
+.previewImage {
   position: relative;
   display: flex;
   justify-content: center;
@@ -218,7 +205,6 @@ form textarea {
   transition: background-color 0.3s;
 }
 
-
 @media (max-width: 1150px) {
   .order_container {
     flex-direction: column;
@@ -232,8 +218,6 @@ form textarea {
     align-items: center;
     padding: 10px 0;
     width: 100%;
-    /* background-color: aqua; */
-
   }
   .feedbackForm {
     display: flex;
@@ -263,15 +247,12 @@ form textarea {
   }
   .formGroup_middle {
     flex-direction: column;
-    /* align-items: ; */
     width: 100%;
     margin: 10px 0 10px 0;
   }
   .formGroup_middle input {
-    display:  flex;
-    width: 70%; 
-    /* background-color: aqua; */
-    /* доделать */
+    display: flex;
+    width: 70%;
   }
   .formGroup_bottom {
     width: 100%;
@@ -293,7 +274,6 @@ form textarea {
   .formGroup textarea {
     width: 100%;
   }
-
 }
 
 @media (min-width: 400px) {
