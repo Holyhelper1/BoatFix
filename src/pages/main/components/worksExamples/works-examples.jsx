@@ -1,91 +1,50 @@
+import example1Before from "../../../../image/examples/example1Before.jpg";
+import example1After from "../../../../image/examples/example1After.jpg";
+import example2Before from "../../../../image/examples/example2Before.jpg";
+import example2After from "../../../../image/examples/example2After.jpg";
 import styles from "./works-examples.module.css";
 export const WorksExamples = () => {
   return (
     <div className={styles.works_repair_info_container}>
       <div className={styles.works_example_item}>
         <div className={styles.works_repair_example}>
-          <h2 className={styles.visually_hidden}>Примеры работ по ремонту ПВХ лодок</h2>
+          <h2 className={styles.visually_hidden}>
+            Примеры работ по ремонту ПВХ лодок в городе Томск
+          </h2>
           <p>
-            Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Hac
-            habitasse platea dictumst quisque sagittis purus sit amet. Eu
-            lobortis elementum nibh tellus molestie nunc non. Tincidunt praesent
-            semper feugiat nibh. Eget nulla facilisi etiam dignissim diam quis.
-            Eu lobortis elementum nibh tellus molestie nunc non. Tincidunt
-            praesent semper feugiat nibh. Eget nulla facilisi etiam dignissim
-            diam quis.
+            Провередны работы по удалению неисправной детали, зачистка
+            поверхности, и монтаж новой детали
           </p>
         </div>
         <div className={styles.works_repair_example}>
           <h3 className={styles.works_repair_example_title}>До ремонта</h3>
-          <img
-            src="https://www.montereyboats.com/zupload/library/811/-2400-960x4000-0.jpg?ztv=20160316164927"
-            alt="Before repair boat" width={300} height={"auto"} loading="lazy"
-          />
-          <p>
-            Congue eu consequat ac felis donec et odio. Eget felis eget nunc
-            lobortis mattis aliquam faucibus purus in. Arcu dui vivamus arcu
-            felis bibendum ut tristique. Aliquam etiam erat velit scelerisque.
-            Adipiscing elit pellentesque habitant morbi. Eu volutpat odio
-            facilisis mauris sit amet massa.
-          </p>
+          <img src={example1Before} alt="Before repair boat" loading="lazy" />
+          <p>Повреждение уключины, изношена ось уключины</p>
         </div>
         <div className={styles.works_repair_example}>
           <h3 className={styles.works_repair_example_title}>После ремонта</h3>
-          <img
-            src="https://www.boatsetter.com/images/homepage/hero.jpg"
-            alt="After repair boat" width={300} height={"auto"} loading="lazy"
-          />
-          <p>
-            Congue eu consequat ac felis donec et odio. Eget felis eget nunc
-            lobortis mattis aliquam faucibus purus in. Arcu dui vivamus arcu
-            felis bibendum ut tristique. Aliquam etiam erat velit scelerisque.
-            Adipiscing elit pellentesque habitant morbi. Eu volutpat odio
-            facilisis mauris sit amet massa.
-          </p>
+          <img src={example1After} alt="After repair boat" loading="lazy" />
+          <p>Замена уключины, после ремонта</p>
         </div>
       </div>
 
-      <hr className={styles.works_example_hr}></hr>
+      {/* <hr className={styles.works_example_hr}></hr> */}
       <div className={styles.works_example_item}>
         <div className={styles.works_repair_example}>
-          <h2 className={styles.visually_hidden}>Примеры работ по ремонту ПВХ лодок</h2>
-          <p>
-            Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Hac
-            habitasse platea dictumst quisque sagittis purus sit amet. Eu
-            lobortis elementum nibh tellus molestie nunc non. Tincidunt praesent
-            semper feugiat nibh. Eget nulla facilisi etiam dignissim diam quis.
-            Eu lobortis elementum nibh tellus molestie nunc non. Tincidunt
-            praesent semper feugiat nibh. Eget nulla facilisi etiam dignissim
-            diam quis.
-          </p>
+          <h2 className={styles.visually_hidden}>
+            Примеры работ по ремонту ПВХ лодок
+          </h2>
+          <p>Оторвалась ручка от времени эксплуатации</p>
         </div>
         <div className={styles.works_repair_example}>
           <h3 className={styles.works_repair_example_title}>До ремонта</h3>
-          <img
-            src="https://avatars.dzeninfra.ru/get-zen_doc/901899/pub_5de77702a3f6e4e9ce9aaf37_5de77aa406cc4600ad7c8c4f/scale_1200"
-            alt="Before repair boat" width={300} height={"auto"} loading="lazy"
-          />
-          <p>
-            Congue eu consequat ac felis donec et odio. Eget felis eget nunc
-            lobortis mattis aliquam faucibus purus in. Arcu dui vivamus arcu
-            felis bibendum ut tristique. Aliquam etiam erat velit scelerisque.
-            Adipiscing elit pellentesque habitant morbi. Eu volutpat odio
-            facilisis mauris sit amet massa.
-          </p>
+          <img src={example2Before} alt="Before repair boat" loading="lazy" />
+          <p>Выбор места и подготовка поверхности</p>
         </div>
         <div className={styles.works_repair_example}>
           <h3 className={styles.works_repair_example_title}>После ремонта</h3>
-          <img
-            src="https://kraiv.ru/upload/medialibrary/fa6/n7uaehai3zyil87xdra5k0ppjbm4769g/Lodka-dlya-morya.jpg"
-            alt="After repair boat" width={300} height={"auto"} loading="lazy"
-          />
-          <p>
-            Congue eu consequat ac felis donec et odio. Eget felis eget nunc
-            lobortis mattis aliquam faucibus purus in. Arcu dui vivamus arcu
-            felis bibendum ut tristique. Aliquam etiam erat velit scelerisque.
-            Adipiscing elit pellentesque habitant morbi. Eu volutpat odio
-            facilisis mauris sit amet massa.
-          </p>
+          <img src={example2After} alt="After repair boat" loading="lazy" />
+          <p>Произведён монтаж и вклейка ручки для переноса лодки</p>
         </div>
       </div>
     </div>

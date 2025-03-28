@@ -43,3 +43,11 @@ input {outline: 0;}
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
 	display: block;
 }
+
+
+@media screen and (max-width: 1024px) {
+  body {
+    background: url('./image/mainPicture3.png') no-repeat  center  fixed;
+  }
+  
+}
