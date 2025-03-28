@@ -4,6 +4,7 @@
   justify-content: space-between;
   width: 100%;
   align-items: center;
+  /* color: #003821; */
   color: #fff;
   font-weight: bold;
   gap: 20px;
@@ -14,7 +15,11 @@
   display: flex;
   justify-content: space-between;
   border-radius: 20px;
+  /* было так */
   background-color: #9ebecdb9;
+  /* новый цвет */
+  background-color: #9ebecde0;
+
   padding: 30px;
 }
 .works_example_hr {

@@ -25,7 +25,7 @@ export const WorksExamples = () => {
             Примеры работ по ремонту ПВХ лодок в городе Томск
           </h2>
           <p>
-            Провередны работы по удалению неисправной детали, зачистка
+            Проведены работы по удалению неисправной детали, зачистка
             поверхности, и монтаж новой детали
           </p>
         </div>
@@ -47,12 +47,12 @@ export const WorksExamples = () => {
           <h2 className={styles.visually_hidden}>
             Примеры работ по ремонту ПВХ лодок
           </h2>
-          <p>Оторвалась ручка от времени эксплуатации</p>
+          <p>Выбор места и подготовка поверхности к монтажу</p>
         </div>
         <div className={styles.works_repair_example}>
           <h3 className={styles.works_repair_example_title}>До ремонта</h3>
           <img src={example2Before} alt="Before repair boat" loading="lazy" onClick={() => openModal(example2Before)}/>
-          <p>Выбор места и подготовка поверхности</p>
+          <p>Оторвалась ручка от времени эксплуатации</p>
         </div>
         <div className={styles.works_repair_example}>
           <h3 className={styles.works_repair_example_title}>После ремонта</h3>
