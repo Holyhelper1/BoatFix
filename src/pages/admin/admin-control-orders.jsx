@@ -96,8 +96,6 @@ export const AdminControlOrders = () => {
     }
   };
 
-
-  // getPublicIdFromUrl()
   return (
     <>
       <PrivateContent>
@@ -137,7 +135,10 @@ export const AdminControlOrders = () => {
                         {`${order.customerPhone}`}
                       </a>
                       <br></br>
-                      Почта: {order.customerEmail ? order.customerEmail : "почта не указана"}
+                      Почта:{" "}
+                      {order.customerEmail
+                        ? order.customerEmail
+                        : "почта не указана"}
                     </div>
                     <div>Описание проблемы: {order.customerMessage}</div>
                   </div>
@@ -171,8 +172,10 @@ export const AdminControlOrders = () => {
             )}
           </div>
         ) : (
-          <div className={styles.admin_control_empty}>
-            К сожалению на данный момент нет активных заказов 😔
+          <div className={styles.admin_control_empty_container}>
+            <div className={styles.admin_control_empty}>
+              К сожалению на данный момент нет активных заказов 😔
+            </div>
           </div>
         )}
       </PrivateContent>

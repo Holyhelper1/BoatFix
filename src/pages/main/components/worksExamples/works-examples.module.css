@@ -56,6 +56,9 @@
   margin-bottom: 0.5rem;
 }
 
+.works_repair_example_price{
+  color: #0c6d34;
+}
 .visually_hidden {
   position: absolute;
   width: 1px;

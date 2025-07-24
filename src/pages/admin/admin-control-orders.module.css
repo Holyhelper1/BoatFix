@@ -4,6 +4,7 @@
     align-items: center;
     width: 80%;
     margin: 0 auto;
+    min-height: 100vh; 
     background-color: rgba(57, 136, 211, 0.767);
     padding: 20px;
     padding-bottom: 250px;
@@ -80,11 +81,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон */
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 5; /* Поверх других элементов */
+    z-index: 5;
 }
 .order_phone {
     text-decoration: none;
@@ -93,57 +94,67 @@
 }
 
 .modal_image {
-    max-width: 90%; /* Ограничиваем ширину изображения */
-    max-height: 90%; /* Ограничиваем высоту изображения */
-    border-radius: 8px; /* Скругление углов изображения */
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
 }
 
 .close_button {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: none; /* Прозрачный фон для кнопки */
-    border: none; /* Убираем стандартные границы у кнопки */
-    color: white; /* Цвет текста кнопки */
-    font-size: 24px; /* Размер шрифта для кнопки */
-    cursor: pointer; /* Курсор указывает на кликабельность */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
 }
 
+
+.admin_control_empty_container {
+    height: 70vh;
+
+}
 .admin_control_empty {
+    display: flex;
+    justify-content: center;
+    height: 200px;
     align-items: center;
     text-align: center;
     margin: 0 auto;
+    margin-top: 50px;
     padding: 20px;
     color: #fff;
     max-width: 500px;
     font-weight: bold;
+    border-radius: 20px;
     font-size: 30px;
     background: #2a793e;
 }
 
 
-/* Медиазапрос для экранов меньшей ширины */
+
 @media (max-width: 1024px) {
     .admin_control_container {
-        width: 90%; /* Увеличиваем ширину для более узких экранов */
+        width: 90%;
     }
 
     .order_image {
-        width: 180px; /* Слегка уменьшаем размер изображений */
+        width: 180px;
     }
 }
 
 @media (max-width: 768px) {
     .order_item {
-        padding: 10px; /* Уменьшаем внутренние отступы */
+        padding: 10px;
     }
 
     .order_image {
-        width: 150px; /* Еще меньше изображений */
+        width: 150px;
     }
 
     .delete_button {
-        padding: 8px 10px; /* Уменьшаем размеры кнопки */
+        padding: 8px 10px;
     }
 
     .admin_control_empty {
@@ -153,20 +164,20 @@
 
 @media (max-width: 360px) {
     .admin_control_container {
-        padding: 10px; /* Снижаем отступы в контейнере */
+        padding: 10px;
     }
 
     .order_item {
-        margin: 5px 0; /* Уменьшаем отступ между элементами */
+        margin: 5px 0;
     }
 
     .order_image {
-        width: 100%; /* Изображения занимают всю ширину родителя */
-        max-width: 150px; /* Устанавливаем максимальную ширину для изображений */
+        width: 100%;
+        max-width: 150px;
     }
 
     .delete_button {
-        width: 100%; /* Кнопка занимает всю ширину */
-        padding: 10px; /* Увеличиваем отступы для удобства */
+        width: 100%;
+        padding: 10px;
     }
 }

@@ -38,6 +38,8 @@ export const WorksExamples = () => {
           <h3 className={styles.works_repair_example_title}>После ремонта</h3>
           <img src={example1After} alt="After repair boat" loading="lazy" onClick={() => openModal(example1After)}/>
           <p>Замена уключины, после ремонта</p>
+          <br></br>
+          <p className={styles.works_repair_example_price}>Цена ремонта: <strong>от 1500 руб.</strong></p>
         </div>
       </div>
 
@@ -58,6 +60,8 @@ export const WorksExamples = () => {
           <h3 className={styles.works_repair_example_title}>После ремонта</h3>
           <img src={example2After} alt="After repair boat" loading="lazy" onClick={() => openModal(example2After)} />
           <p>Произведён монтаж и вклейка ручки для переноса лодки</p>
+          <br></br>
+          <p className={styles.works_repair_example_price}>Цена ремонта: <strong>от 1000 руб.</strong></p>
         </div>
       </div>
 
