@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import example1Before from "../../../../image/examples/example1Before.jpg";
-import example1After from "../../../../image/examples/example1After.jpg";
-import example2Before from "../../../../image/examples/example2Before.jpg";
-import example2After from "../../../../image/examples/example2After.jpg";
+import example1Before from "../../../../image/examples/example1Before.webp";
+import example1After from "../../../../image/examples/example1After.webp";
+import example2Before from "../../../../image/examples/example2Before.webp";
+import example2After from "../../../../image/examples/example2After.webp";
 import styles from "./works-examples.module.css";
 export const WorksExamples = () => {
     const [isModalOpen, setModalOpen] = useState(false);
