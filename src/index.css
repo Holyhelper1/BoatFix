@@ -47,7 +47,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 @media screen and (max-width: 1024px) {
   body {
-    background: url('./image/mainPicture3.png') no-repeat  center  fixed;
+    background: url('./image/mainPicture3.webp') no-repeat  center  fixed;
   }
   
 }
