@@ -3,4 +3,5 @@ export const LINKS = {
   ORDER: "/order",
   CONTACTS: "/contacts",
   PRICES: "/prices",
+  PRIVACY_POLICY: "/privacy-policy",
 };

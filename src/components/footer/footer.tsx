@@ -31,7 +31,7 @@ export const Footer = () => {
               </span>
             </Link>
             <p className={styles.brand_desc}>
-              Профессиональный ремонт, тюнинг и оснащение ПВХ лодок в Томске.{" "}
+              Профессиональный ремонт, тюнинг <br></br> и оснащение ПВХ лодок в Томске.{" "}
               <br></br> Качество, проверенное временем.
             </p>
             <div className={styles.socials}>
@@ -120,7 +120,7 @@ export const Footer = () => {
       <div className={styles.footer_bottom}>
         <div className={`container ${styles.footer_bottom_inner}`}>
           <span>&copy; {thisYear} BoatFix Tomsk. Все права защищены.</span>
-          <Link to="/" onClick={(e) => e.preventDefault()}>
+          <Link to={LINKS.PRIVACY_POLICY}>
             Политика конфиденциальности
           </Link>
         </div>

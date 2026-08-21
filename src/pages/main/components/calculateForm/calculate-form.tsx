@@ -29,6 +29,7 @@ interface PreviewItem {
 export const CalculateForm = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [problem, setProblem] = useState("");
   const [items, setItems] = useState<PreviewItem[]>([]);
   const [dragActive, setDragActive] = useState(false);
@@ -52,18 +53,18 @@ export const CalculateForm = () => {
     );
 
     if (valid.length < incomingFiles.length) {
-      toast.error(
+      toast.warning(
         `Можно прикрепить только JPG/PNG размером до ${MAX_FILE_SIZE_MB} МБ.`
       );
     }
 
     const freeSlots = maxImages - items.length;
     if (freeSlots <= 0) {
-      toast.error(`Можно прикрепить не более ${maxImages} изображений.`);
+      toast.warning(`Можно прикрепить не более ${maxImages} изображений.`);
       return;
     }
     if (valid.length > freeSlots) {
-      toast.error(`Можно прикрепить не более ${maxImages} изображений.`);
+      toast.warning(`Можно прикрепить не более ${maxImages} изображений.`);
     }
 
     const accepted = valid.slice(0, freeSlots);
@@ -103,6 +104,7 @@ export const CalculateForm = () => {
     const success = await submitOrder({
       name,
       phone,
+      email,
       message: problem,
       files: items.map((item) => item.file),
     });
@@ -110,6 +112,7 @@ export const CalculateForm = () => {
     if (success) {
       setName("");
       setPhone("");
+      setEmail("");
       setProblem("");
       clearItems();
     }
@@ -138,6 +141,15 @@ export const CalculateForm = () => {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
+                aria-label="Ваш телефон"
+              />
+              <input
+                type="email"
+                placeholder="Ваш Email (необязательно)"
+                title="Введите корректную электронную почту"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                aria-label="Ваш Email"
               />
               <textarea
                 placeholder="Опишите проблему: опишите, что случилось с вашей лодкой"

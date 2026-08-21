@@ -201,12 +201,67 @@ ul {
 }
 
 /* УВЕДОМЛЕНИЯ SONNER (в стиле сайта) */
+.toast-success,
+.toast-error,
+.toast-warning,
+.toast-info {
+  --toast-icon-color: currentColor;
+}
+
 .toast-success {
-  border-color: rgba(126, 193, 66, 0.45) !important;
+  border-color: rgba(126, 193, 66, 0.55) !important;
+  background: linear-gradient(
+    to right,
+    rgba(126, 193, 66, 0.12),
+    #1a1a1a 40%
+  ) !important;
+  box-shadow: inset 3px 0 0 0 var(--primary-accent-green);
+}
+
+.toast-success [data-icon] {
+  color: var(--primary-accent-green);
 }
 
 .toast-error {
-  border-color: rgba(239, 35, 60, 0.45) !important;
+  border-color: rgba(239, 35, 60, 0.55) !important;
+  background: linear-gradient(
+    to right,
+    rgba(239, 35, 60, 0.12),
+    #1a1a1a 40%
+  ) !important;
+  box-shadow: inset 3px 0 0 0 var(--status-danger);
+}
+
+.toast-error [data-icon] {
+  color: var(--status-danger);
+}
+
+.toast-warning {
+  border-color: rgba(255, 183, 3, 0.55) !important;
+  background: linear-gradient(
+    to right,
+    rgba(255, 183, 3, 0.12),
+    #1a1a1a 40%
+  ) !important;
+  box-shadow: inset 3px 0 0 0 var(--status-process);
+}
+
+.toast-warning [data-icon] {
+  color: var(--status-process);
+}
+
+.toast-info {
+  border-color: rgba(0, 160, 233, 0.55) !important;
+  background: linear-gradient(
+    to right,
+    rgba(0, 160, 233, 0.12),
+    #1a1a1a 40%
+  ) !important;
+  box-shadow: inset 3px 0 0 0 var(--primary-cyan);
+}
+
+.toast-info [data-icon] {
+  color: var(--primary-cyan);
 }
 
 /* ДОСТУПНОСТЬ */
