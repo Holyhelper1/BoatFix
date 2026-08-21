@@ -210,8 +210,9 @@ export const Order = () => {
   };
 
   return (
-    <div className={`container ${styles.order}`}>
-      <aside className={styles.sidebar}>
+    <div className="container">
+      <div className={styles.order}>
+        <aside className={styles.sidebar}>
         <section className={styles.card}>
           <h2 className={styles.card_title}>Как мы работаем</h2>
           <ol className={styles.steps}>
@@ -407,6 +408,7 @@ export const Order = () => {
           />
         </form>
       </section>
+      </div>
     </div>
   );
 };
