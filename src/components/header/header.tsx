@@ -1,49 +1,123 @@
+import { useState } from "react";
 import styles from "./header.module.css";
 import logo3 from "../../image/logo3.png";
-import { SocialLinks } from "../social_links/social_links";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { FiPhone } from "react-icons/fi";
+import { FaWhatsapp, FaTelegramPlane } from "react-icons/fa";
 import { LINKS } from "../../Constants/links";
-import { scrollToSection } from "../../Utils/smooth-scroll";
+import { CONTACTS, SOCIAL_LINKS } from "../../Constants/contacts";
+
+const NAV_ITEMS = [
+  { label: "Главная", to: LINKS.MAIN },
+  { label: "До / После", to: `${LINKS.MAIN}#examples` },
+  { label: "Цены", to: LINKS.PRICES },
+  { label: "Контакты", to: LINKS.CONTACTS },
+];
 
 export const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <header className={styles.header}>
-      <div className={styles.top_bar}>
-        <div className={styles.top_bar_left}>
-          <span>г. Томск, ул. Черноморская, д. 44/3</span>
-          <span className={styles.top_bar_sep}>|</span>
-          <time dateTime="Mo-Fr 09:00-18:00">Пн-Пт: 9:00-18:00</time>
-        </div>
-        <div className={styles.top_bar_right}>
-          <a className={styles.top_phone} href="tel:+79039554324">
-            +7 (903) 955-43-24
-          </a>
-          <span className={styles.top_bar_sep}>|</span>
-          <a className={styles.top_phone} href="tel:83822224324">
-            8(382) 222-43-24
-          </a>
-          <SocialLinks />
-        </div>
-      </div>
-
-      <div className={styles.main_bar}>
-        <Link to={LINKS.MAIN} className={styles.header_logo_link}>
-          <img className={styles.header_logo} src={logo3} alt="logo boat" />
-          <span className={styles.header_title}>Ремонт ПВХ лодок</span>
+      <div className={`container ${styles.header_inner}`}>
+        <Link to={LINKS.MAIN} className={styles.logo} onClick={closeMenu}>
+          <img src={logo3} alt="BoatFix — ремонт ПВХ лодок" />
+          <span className={styles.logo_text}>
+            <span className={styles.logo_title}>
+              Boat<span className={styles.logo_accent}>Fix</span>
+            </span>
+            <span className={styles.logo_subtitle}>Ремонт ПВХ лодок</span>
+          </span>
         </Link>
 
-        <nav className={styles.header_nav}>
-          <Link to={LINKS.MAIN}>Главная</Link>
-          <Link to={LINKS.MAIN} onClick={() => scrollToSection("examples")}>
-            Примеры работ
-          </Link>
-          <Link to={LINKS.CONTACTS}>Контакты</Link>
+        <nav
+          className={`${styles.nav} ${menuOpen ? styles.nav_open : ""}`}
+          aria-label="Основная навигация"
+        >
+          {NAV_ITEMS.map((item) =>
+            item.to === `${LINKS.MAIN}#examples` ? (
+              <a
+                key={item.label}
+                href="#examples"
+                className={
+                  location.hash === "#examples" ? styles.nav_link_active : ""
+                }
+                onClick={closeMenu}
+              >
+                {item.label}
+              </a>
+            ) : (
+              <NavLink
+                key={item.label}
+                to={item.to}
+                end={item.to === LINKS.MAIN}
+                className={({ isActive }) =>
+                  isActive ? styles.nav_link_active : ""
+                }
+                onClick={closeMenu}
+              >
+                {item.label}
+              </NavLink>
+            )
+          )}
+
+          <div className={styles.nav_contacts_mobile}>
+            {CONTACTS.phones.map((phone) => (
+              <a key={phone.href} href={phone.href} className={styles.phone}>
+                {phone.display}
+              </a>
+            ))}
+          </div>
         </nav>
 
-        <Link to={LINKS.ORDER} className={styles.cta_button}>
-          <span>Оставить заявку</span>
-          <span className={styles.cta_arrow}>&rarr;</span>
-        </Link>
+        <div className={styles.header_right}>
+          <div className={styles.phones}>
+            {CONTACTS.phones.map((phone) => (
+              <a key={phone.href} href={phone.href} className={styles.phone}>
+                <FiPhone className={styles.phone_icon} aria-hidden="true" />
+                {phone.display}
+              </a>
+            ))}
+          </div>
+
+          <div className={styles.messengers}>
+            <a
+              href={SOCIAL_LINKS.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.messenger}
+              aria-label="Написать в WhatsApp"
+            >
+              <FaWhatsapp className={styles.messenger_icon_whatsapp} />
+              WhatsApp
+            </a>
+            <a
+              href={SOCIAL_LINKS.telegram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.messenger}
+              aria-label="Написать в Telegram"
+            >
+              <FaTelegramPlane className={styles.messenger_icon_telegram} />
+              Telegram
+            </a>
+          </div>
+
+          <button
+            type="button"
+            className={`${styles.burger} ${menuOpen ? styles.burger_open : ""}`}
+            aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
       </div>
     </header>
   );

@@ -1,14 +1,10 @@
 ﻿import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
-import axios from "axios";
 import styles from "./order.module.css";
-import cloudinaryConfig from "../../cloudinaryConfig";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../firebase";
 import toolsImg from "../../image/toolsImg.jpg";
 import { UploadButton } from "../../components";
 import { PhoneInput } from "../../components/phone-input/phone-input";
-import { Modal } from "../../components/modal/modal";
+import { useOrderSubmit } from "../../hooks/use-order-submit";
 
 export const Order = () => {
   const [name, setName] = useState("");
@@ -17,62 +13,35 @@ export const Order = () => {
   const [question, setQuestion] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const { submitOrder, isSubmitting, maxImages } = useOrderSubmit();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrorMessage("");
-    setSuccessMessage("");
 
-    try {
-      const customerImages: string[] = [];
-      for (const file of files) {
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", cloudinaryConfig.uploadPreset as string);
+    const success = await submitOrder({
+      name,
+      phone,
+      email,
+      message: question,
+      files,
+    });
 
-        const response = await axios.post(
-          `https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloudName}/image/upload`,
-          formData
-        );
-        customerImages.push(response.data.secure_url);
-      }
-
-      await addDoc(collection(db, "orders"), {
-        customerName: name.trim(),
-        customerPhone: phone,
-        customerEmail: email.trim(),
-        customerMessage: question.trim(),
-        customerImages,
-        timestamp: serverTimestamp(),
-      });
-
+    if (success) {
       setName("");
       setPhone("");
       setEmail("");
       setQuestion("");
+      files.forEach((_, i) => URL.revokeObjectURL(imageUrls[i]));
       setFiles([]);
       setImageUrls([]);
-      setSuccessMessage(
-        "Заявка успешно отправлена, ожидайте от нас обратного звонка."
-      );
-      setIsModalOpen(true);
-    } catch (error) {
-      console.error("Ошибка при отправке заявки: ", error);
-      setErrorMessage(
-        "Произошла ошибка при отправке заявки. Пожалуйста, попробуйте ещё раз."
-      );
-      setIsModalOpen(true);
     }
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
 
-    if (selectedFiles.length + files.length > 4) {
-      alert("Вы можете загрузить не более 4 изображений.");
+    if (selectedFiles.length + files.length > maxImages) {
+      alert(`Вы можете загрузить не более ${maxImages} изображений.`);
       return;
     }
 
@@ -84,13 +53,9 @@ export const Order = () => {
   };
 
   const removeImage = (index: number) => {
-    const newFiles = [...files];
-    newFiles.splice(index, 1);
-    setFiles(newFiles);
-    const newUrls = [...imageUrls];
-    URL.revokeObjectURL(newUrls[index]);
-    newUrls.splice(index, 1);
-    setImageUrls(newUrls);
+    URL.revokeObjectURL(imageUrls[index]);
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+    setImageUrls((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -146,7 +111,9 @@ export const Order = () => {
                 onChange={handleFileChange}
               />
             </label>
-            <UploadButton type="submit">Отправить</UploadButton>
+            <UploadButton type="submit" disabled={isSubmitting}>
+              Отправить
+            </UploadButton>
           </div>
         </div>
 
@@ -167,17 +134,6 @@ export const Order = () => {
           </div>
         )}
       </form>
-      {isModalOpen && (
-        <Modal
-          onClose={() => {
-            setIsModalOpen(false);
-            setErrorMessage("");
-            setSuccessMessage("");
-          }}
-          errorMessage={errorMessage}
-          successMessage={successMessage}
-        />
-      )}
       <div className={styles.order_tools_imageContainer}>
         <img src={toolsImg} alt="Ремонт ПВХ лодок" />
       </div>
