@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./admin-control-orders.module.css";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { PrivateContent } from "../../components/private/private-content";
 import { convertTimestampToDate } from "../../Utils/convertTimestampToDate";
-// import cloudinaryConfig from "../../cloudinaryConfig";
-// import { getPublicIdFromUrl } from "../../Utils/public-id-from-url";
-import { Button } from "../../components";
 
 export const AdminControlOrders = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -40,51 +37,7 @@ export const AdminControlOrders = () => {
     fetchOrders();
   }, [getNewOrders]);
 
-  // удаление изображений из Cloudinary
-  // const deleteImageFromCloudinary = async (publicId) => {
-  //   const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloudName}/image/destroy`;
-
-  //   try {
-  //       const response = await fetch(cloudinaryUrl, {
-  //           method: 'POST',
-  //           headers: {
-  //               'Authorization': `Basic ${btoa(`${cloudinaryConfig.apiKey}:${cloudinaryConfig.apiSecret}`)}`,
-  //               'Content-Type': 'application/json',
-  //           },
-  //           body: JSON.stringify({
-  //               public_id: publicId,
-  //               invalidate: true,
-  //           }),
-  //       });
-
-  //       if (!response.ok) {
-  //           throw new Error(`Ошибка при удалении изображения: ${response.statusText}`);
-  //       }
-
-  //       console.log(`Изображение ${publicId} успешно удалено из Cloudinary.`);
-  //   } catch (error) {
-  //       console.error("Ошибка при удалении изображения: ", error);
-  //   }
-  // };
-
   const handleDelete = async (order) => {
-    // if (order.customerImages && Array.isArray(order.customerImages)) {
-    //   const deletePromises = order.customerImages.map((imageUrl) => {
-    //     console.log("handleDelete - imageUrl", imageUrl);
-
-    //     const publicId = getPublicIdFromUrl(imageUrl);
-    //     if (publicId) {
-    //       return deleteImageFromCloudinary(publicId);
-    //     }
-    //     return Promise.resolve();
-    //   });
-
-    //   await Promise.all(deletePromises);
-    // } else {
-    //   console.warn("customerImages не найден или не является массивом в заказе:", order);
-    // }
-
-    // Удаляем заказ из Firestore
     await deleteDoc(doc(db, "orders", order.id));
     setOrders(orders.filter((o) => o.id !== order.id));
   };
@@ -102,13 +55,13 @@ export const AdminControlOrders = () => {
         {orders.length > 0 ? (
           <div className={styles.admin_control_container}>
             <h2 className={styles.admin_control_tittle}>Активные заказы</h2>
-            {isLoading && <div>Загрузка заказов...</div>}
-            <Button
-              className={styles.check_new_orders}
+            {isLoading && <div className={styles.loading}>Загрузка заказов...</div>}
+            <button
+              className={styles.refresh_button}
               onClick={() => setGetNewOrders(!getNewOrders)}
             >
-              Обновить заказы ↩
-            </Button>
+              ↻ Обновить заказы
+            </button>
             <ul className={styles.order_list}>
               {orders.map((order) => (
                 <li key={order.id} className={styles.order_item}>
@@ -174,7 +127,12 @@ export const AdminControlOrders = () => {
         ) : (
           <div className={styles.admin_control_empty_container}>
             <div className={styles.admin_control_empty}>
-              К сожалению на данный момент нет активных заказов 😔
+              <span className={styles.admin_control_empty_icon}>&#128338;</span>
+              <div className={styles.admin_control_empty_title}>Нет активных заказов</div>
+              <p>На данный момент заявки отсутствуют. Новые заказы появятся здесь после отправки клиентами формы на сайте.</p>
+              <div className={styles.admin_control_empty_sub}>
+                Нажмите «Обновить заказы», чтобы проверить снова
+              </div>
             </div>
           </div>
         )}

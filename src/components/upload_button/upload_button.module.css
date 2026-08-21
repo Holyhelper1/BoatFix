@@ -1,53 +1,45 @@
-@font-face {
-  font-family: jura;
-  src: url("../../fonts/jura/Jura-Regular.ttf");
+.button_container {
+  display: flex;
+  font-size: 1rem;
 }
 
-.button_container {
-    display: flex;
-    font-size: 29px;
-  }
-  
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-cta);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 1.5rem;
+  font-size: 0.95rem;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.button:hover {
+  background: var(--color-cta-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255, 122, 0, 0.3);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-cta);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
   .button {
-    display: flex;
-    background-color: #4b6c63;
-    color: #d3e1e8;
-    border: none;
-    border-radius: 4px;
-    padding: 0.4rem 1rem;
-    font-size: 1rem;
-    font-family: jura;
-    font-weight: 500;
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
-    transition: background-color 0.3s;
-  }
-  
-  .button:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
     width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
-    transition: left 0.3s;
   }
-  
-  .button:hover {
-    background-color: #3a5650;
-    color: #eceff0;
-  }
-  
-  .button:hover:before {
-    left: 100%;
-  }
-  
-  @media (max-width: 480px) {
-    .button {
-      padding: 0.6rem 1.2rem;
-      font-size: 0.9rem;
-    }
-  }
-  
+}

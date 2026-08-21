@@ -7,11 +7,13 @@ export const App = () => {
   return (
     <div className={style.web_container}>
       <Header />
-      <Routes>
-        {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
-      </Routes>
+      <main className={style.main_content}>
+        <Routes>
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Routes>
+      </main>
       <Footer />
     </div>
   );

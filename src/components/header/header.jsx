@@ -4,56 +4,46 @@ import { SocialLinks } from "../social_links/social_links";
 import { Link } from "react-router-dom";
 import { LINKS } from "../../Constants/links";
 import { scrollToSection } from "../../Utils/smooth-scroll";
+
 export const Header = () => {
   return (
-    <header className={styles.header} id="main">
-      <div className={styles.header_top}>
-        <ul className={styles.header_top_text}>
-          <li>г. Томск, ул. Черноморская, д. 44/3</li>
-          <li>
-            Телефон:{" "}
-            <a className={styles.header_phone} href="tel:+79039554324">
-              {" "}
-              +7 (903) 955-43-24{" "}
-            </a>{" "}
-            <br></br>
-            <a className={styles.header_phone} href="tel:83822224324">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              8(382) 222-43-24
-            </a>
-          </li>
+    <header className={styles.header}>
+      <div className={styles.top_bar}>
+        <div className={styles.top_bar_left}>
+          <span>г. Томск, ул. Черноморская, д. 44/3</span>
+          <span className={styles.top_bar_sep}>|</span>
           <time dateTime="Mo-Fr 09:00-18:00">Пн-Пт: 9:00-18:00</time>
-        </ul>
-        <div className={styles.header_bottom_logo}>
-          <Link to={LINKS.MAIN}>
-            <img
-              title="На главную страницу"
-              className={styles.header_logo}
-              src={logo3}
-              alt="logo boat"
-            />
-          </Link>
-          <h1 className={styles.header_title}>Ремонт ПВХ лодок в Томске</h1>
         </div>
-        <hr className={styles.header_hr}></hr>
-        <nav>
-          <ul className={styles.header_nav_container}>
-            <Link to={LINKS.MAIN}>
-              <li>Главная</li>
-            </Link>
-            <Link to={LINKS.MAIN} onClick={() => scrollToSection("main")}>
-              <li>Примеры работ</li>
-            </Link>
-            {/* <li>О нас</li> */}
-            <Link to={LINKS.CONTACTS}>
-              <li>Контакты</li>
-            </Link>
-          </ul>
-        </nav>
+        <div className={styles.top_bar_right}>
+          <a className={styles.top_phone} href="tel:+79039554324">
+            +7 (903) 955-43-24
+          </a>
+          <span className={styles.top_bar_sep}>|</span>
+          <a className={styles.top_phone} href="tel:83822224324">
+            8(382) 222-43-24
+          </a>
+          <SocialLinks />
+        </div>
       </div>
 
-      <div className={styles.header_container}>
-        <SocialLinks />
+      <div className={styles.main_bar}>
+        <Link to={LINKS.MAIN} className={styles.header_logo_link}>
+          <img className={styles.header_logo} src={logo3} alt="logo boat" />
+          <span className={styles.header_title}>Ремонт ПВХ лодок</span>
+        </Link>
+
+        <nav className={styles.header_nav}>
+          <Link to={LINKS.MAIN}>Главная</Link>
+          <Link to={LINKS.MAIN} onClick={() => scrollToSection("examples")}>
+            Примеры работ
+          </Link>
+          <Link to={LINKS.CONTACTS}>Контакты</Link>
+        </nav>
+
+        <Link to={LINKS.ORDER} className={styles.cta_button}>
+          <span>Оставить заявку</span>
+          <span className={styles.cta_arrow}>&rarr;</span>
+        </Link>
       </div>
     </header>
   );

@@ -1,59 +1,74 @@
-@font-face {
-    font-family: jura;
-    src: url("../../fonts/jura/Jura-Regular.ttf");
-  }
-  .admin_login_wrapper{
-    height: 100vh;
-  }
+.admin_login_wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
 .loginForm {
   position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    border-radius: 10px; 
-    font-family: jura;
-    max-width: 400px;
-    background-color: #66cde7ad; 
-    margin: 0 auto; 
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.459); 
-  }
-  
-  .inputField {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 3px; 
-    font-size: 16px;
-  }
-  
-  .inputField:focus {
-    border-color: #00ff9d;
-    outline: none;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 36px 28px;
+  box-shadow: var(--shadow-lg);
+  border: var(--glass-border);
+  gap: 16px;
+}
 
-  .passwordToggle {
-    position: absolute;
-    display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
-    top: 93px;
-    right: 30px;
-    font-size: 22px;
-    color: #626263ad;
-    width: 100px;
-  }
+.inputField {
+  width: 100%;
+  padding: 12px 14px;
+  border: var(--glass-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-family: var(--font-primary);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all var(--transition);
+  color: var(--color-text);
+}
+
+.inputField:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.12);
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.inputField::placeholder {
+  color: var(--color-text-muted);
+}
+
+.passwordToggle {
+  position: absolute;
+  cursor: pointer;
+  top: 108px;
+  right: 36px;
+  font-size: 1.2rem;
+  color: var(--color-text-muted);
+  transition: all var(--transition);
+  user-select: none;
+}
+
+.passwordToggle:hover {
+  color: var(--color-accent);
+}
 
 @media (max-width: 768px) {
-  .admin_login_wrapper{
+  .admin_login_wrapper {
     height: auto;
+    min-height: 60vh;
+    padding: 40px 16px;
   }
   .loginForm {
-    margin-top: 10px;
-    height: 150px;
-    margin-bottom: 200px;
+    padding: 24px 16px;
   }
 }

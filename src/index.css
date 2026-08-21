@@ -1,53 +1,122 @@
+@font-face {
+  font-family: jura;
+  src: url('./fonts/jura/Jura-Regular.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: juraBold;
+  src: url('./fonts/jura/Jura-Bold.ttf');
+  font-display: swap;
+}
+
+:root {
+  --color-bg-dark: #0a0f0d;
+  --color-bg-surface: rgba(255, 255, 255, 0.06);
+  --color-bg-glass: rgba(255, 255, 255, 0.08);
+  --color-bg-glass-hover: rgba(255, 255, 255, 0.14);
+  --color-bg-card: rgba(255, 255, 255, 0.05);
+  --color-accent: #2ecc71;
+  --color-accent-dark: #27ae60;
+  --color-cta: #ff7a00;
+  --color-cta-hover: #e06e00;
+  --color-accent-blue: #4a9eff;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.65);
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-hover: rgba(255, 255, 255, 0.25);
+  --color-danger: #e74c3c;
+  --color-success: #2ecc71;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --font-primary: jura, sans-serif;
+  --transition: 0.3s ease;
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
-  font-family: jura,sans-serif;
+  font-family: var(--font-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url('./image/mainPicture3.png') no-repeat  center ;
-  background-size: cover;
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	vertical-align: baseline;
-}
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {display: block;}
-ol, ul {list-style: none;}
-blockquote, q {quotes: none;}
-blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none;}
-table {border-collapse: collapse; border-spacing: 0;}
-h1, h2, h3, h4, h5, h6 {font-weight: normal;}
-input {outline: 0;}
-
-article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
-	display: block;
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(135deg, rgba(10, 15, 13, 0.92) 0%, rgba(26, 46, 36, 0.85) 50%, rgba(10, 15, 13, 0.92) 100%),
+    url('./image/mainPicture3.png') no-repeat center / cover;
+  z-index: -2;
 }
 
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(46, 204, 113, 0.08) 0%, transparent 60%);
+  z-index: -1;
+  pointer-events: none;
+}
 
-@media screen and (max-width: 1024px) {
-  body {
-    background: url('./image/mainPicture3.png') no-repeat  center  fixed;
+#root {
+  position: relative;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+a {
+  color: var(--color-accent);
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: #fff;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import styles from "./order.module.css";
 import cloudinaryConfig from "../../cloudinaryConfig";
@@ -10,9 +10,16 @@ import {
 } from "firebase/firestore";
 import toolsImg from "../../image/toolsImg.jpg";
 import { UploadButton } from "../../components";
-
 import MaskedInput from "react-text-mask";
 import { Modal } from "../../components/modal/modal";
+
+const PHONE_MASK = [
+  "+", "7", "(", /[0-9]/, /[0-9]/, /[0-9]/, ")", " ",
+  /[0-9]/, /[0-9]/, /[0-9]/, "-",
+  /[0-9]/, /[0-9]/, "-",
+  /[0-9]/, /[0-9]/
+];
+
 export const Order = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -22,15 +29,14 @@ export const Order = () => {
   const [imageUrls, setImageUrls] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState(
-    "Заявка успешно отправлена, ожидайте от нас обратного звонка."
-  );
+  const [successMessage, setSuccessMessage] = useState("");
 
   const db = getFirestore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
+    setSuccessMessage("");
 
     try {
       const customerImages = [];
@@ -43,16 +49,15 @@ export const Order = () => {
           `https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloudName}/image/upload`,
           formData
         );
-        const url = response.data.secure_url;
-        customerImages.push(url);
+        customerImages.push(response.data.secure_url);
       }
 
       await addDoc(collection(db, "orders"), {
-        customerName: name,
+        customerName: name.trim(),
         customerPhone: phone,
-        customerEmail: email,
-        customerMessage: question,
-        customerImages: customerImages,
+        customerEmail: email.trim(),
+        customerMessage: question.trim(),
+        customerImages,
         timestamp: serverTimestamp(),
       });
 
@@ -62,13 +67,12 @@ export const Order = () => {
       setQuestion("");
       setFiles([]);
       setImageUrls([]);
-      setIsModalOpen(true);
       setSuccessMessage(
         "Заявка успешно отправлена, ожидайте от нас обратного звонка."
       );
+      setIsModalOpen(true);
     } catch (error) {
-      console.error("Ошибка при добавлении документа: ", error);
-
+      console.error("Ошибка при отправке заявки: ", error);
       setErrorMessage(
         "Произошла ошибка при отправке заявки. Пожалуйста, попробуйте ещё раз."
       );
@@ -91,6 +95,16 @@ export const Order = () => {
     ]);
   };
 
+  const removeImage = (index) => {
+    const newFiles = [...files];
+    newFiles.splice(index, 1);
+    setFiles(newFiles);
+    const newUrls = [...imageUrls];
+    URL.revokeObjectURL(newUrls[index]);
+    newUrls.splice(index, 1);
+    setImageUrls(newUrls);
+  };
+
   return (
     <div className={styles.order_container}>
       <form className={styles.feedbackForm} onSubmit={handleSubmit}>
@@ -109,7 +123,7 @@ export const Order = () => {
           <div className={styles.formGroup_middle}>
             <div className={styles.form_data}>
               <MaskedInput
-                mask={["+","7","(",/[0-9]/,/[0-9]/,/[0-9]/,")"," ",/[0-9]/,/[0-9]/,/[0-9]/,"-",/[0-9]/,/[0-9]/,"-",/[0-9]/,/[0-9]/]}
+                mask={PHONE_MASK}
                 placeholder="Тел.: +7(___) ___-__-__"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -130,12 +144,12 @@ export const Order = () => {
           <div className={styles.formGroup_bottom}>
             <textarea
               id="question"
-              placeholder="Вашe сообщение *"
+              placeholder="Ваше сообщение *"
               title="Опишите повреждение лодки"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               required
-            ></textarea>
+            />
           </div>
           <div className={styles.buttonContainer}>
             <label className={styles.fileInput}>
@@ -154,20 +168,11 @@ export const Order = () => {
           <div className={styles.previewImages}>
             {imageUrls.map((url, index) => (
               <div key={index} className={styles.previewImage}>
-                <img
-                  src={url}
-                  alt={`Preview ${index + 1}`}
-                />
+                <img src={url} alt={`Preview ${index + 1}`} />
                 <button
+                  type="button"
                   className={styles.order_image_closeButton}
-                  onClick={() => {
-                    const newFiles = [...files];
-                    newFiles.splice(index, 1);
-                    setFiles(newFiles);
-                    const newUrls = [...imageUrls];
-                    newUrls.splice(index, 1);
-                    setImageUrls(newUrls);
-                  }}
+                  onClick={() => removeImage(index)}
                 >
                   &times;
                 </button>
@@ -180,6 +185,7 @@ export const Order = () => {
         <Modal
           onClose={() => {
             setIsModalOpen(false);
+            setErrorMessage("");
             setSuccessMessage("");
           }}
           errorMessage={errorMessage}
@@ -187,7 +193,7 @@ export const Order = () => {
         />
       )}
       <div className={styles.order_tools_imageContainer}>
-        <img src={toolsImg} alt="order" />
+        <img src={toolsImg} alt="Ремонт ПВХ лодок" />
       </div>
     </div>
   );

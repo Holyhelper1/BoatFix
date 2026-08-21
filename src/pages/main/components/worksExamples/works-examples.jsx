@@ -1,82 +1,72 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import example1Before from "../../../../image/examples/example1Before.webp";
 import example1After from "../../../../image/examples/example1After.webp";
 import example2Before from "../../../../image/examples/example2Before.webp";
 import example2After from "../../../../image/examples/example2After.webp";
 import styles from "./works-examples.module.css";
+
+const cases = [
+  {
+    id: 1,
+    before: example1Before,
+    after: example1After,
+    title: "Замена уключины на лодке Amaran",
+    desc: "Повреждение уключины, изношена ось. Произведена замена неисправной детали, зачистка поверхности и монтаж новой уключины с восстановлением герметичности.",
+    price: "от 1 500 руб.",
+  },
+  {
+    id: 2,
+    before: example2Before,
+    after: example2After,
+    title: "Вклейка ручки для переноса лодки",
+    desc: "Оторвалась заводская ручка от времени эксплуатации. Выполнен подбор места, подготовка поверхности и монтаж новой усиленной ручки для переноса.",
+    price: "от 1 000 руб.",
+  },
+];
+
 export const WorksExamples = () => {
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [selectedImage, setSelectedImage] = useState("");
+  const [modalImg, setModalImg] = useState(null);
 
-  const openModal = (imageUrl) => {
-    setSelectedImage(imageUrl);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    setSelectedImage("");
-  };
   return (
-    <div className={styles.works_repair_info_container}>
-      <div className={styles.works_example_item}>
-        <div className={styles.works_repair_example}>
-          <h2 className={styles.visually_hidden}>
-            Примеры работ по ремонту ПВХ лодок в городе Томск
-          </h2>
-          <p>
-            Проведены работы по удалению неисправной детали, зачистка
-            поверхности, и монтаж новой детали
-          </p>
+    <div className={styles.container}>
+      {cases.map((c) => (
+        <div key={c.id} className={styles.case}>
+          <div className={styles.images_row}>
+            <div className={styles.image_card}>
+              <span className={styles.badge_before}>До</span>
+              <img
+                src={c.before}
+                alt="До ремонта"
+                loading="lazy"
+                onClick={() => setModalImg(c.before)}
+              />
+            </div>
+            <div className={styles.image_card}>
+              <span className={styles.badge_after}>После</span>
+              <img
+                src={c.after}
+                alt="После ремонта"
+                loading="lazy"
+                onClick={() => setModalImg(c.after)}
+              />
+            </div>
+          </div>
+          <div className={styles.info}>
+            <h3 className={styles.info_title}>{c.title}</h3>
+            <p className={styles.info_desc}>{c.desc}</p>
+            <p className={styles.info_price}>{c.price}</p>
+          </div>
         </div>
-        <div className={styles.works_repair_example}>
-          <h3 className={styles.works_repair_example_title}>До ремонта</h3>
-          <img src={example1Before} alt="Before repair boat" loading="lazy" onClick={() => openModal(example1Before)} />
-          <p>Повреждение уключины, изношена ось уключины</p>
-        </div>
-        <div className={styles.works_repair_example}>
-          <h3 className={styles.works_repair_example_title}>После ремонта</h3>
-          <img src={example1After} alt="After repair boat" loading="lazy" onClick={() => openModal(example1After)}/>
-          <p>Замена уключины, после ремонта</p>
-          <br></br>
-          <p className={styles.works_repair_example_price}>Цена ремонта: <strong>от 1500 руб.</strong></p>
-        </div>
-      </div>
+      ))}
 
-      {/* <hr className={styles.works_example_hr}></hr> */}
-      <div className={styles.works_example_item}>
-        <div className={styles.works_repair_example}>
-          <h2 className={styles.visually_hidden}>
-            Примеры работ по ремонту ПВХ лодок
-          </h2>
-          <p>Выбор места и подготовка поверхности к монтажу</p>
+      {modalImg && (
+        <div className={styles.modal} onClick={() => setModalImg(null)}>
+          <img src={modalImg} alt="Полный размер" className={styles.modal_img} />
+          <button className={styles.modal_close} onClick={() => setModalImg(null)}>
+            &times;
+          </button>
         </div>
-        <div className={styles.works_repair_example}>
-          <h3 className={styles.works_repair_example_title}>До ремонта</h3>
-          <img src={example2Before} alt="Before repair boat" loading="lazy" onClick={() => openModal(example2Before)}/>
-          <p>Оторвалась ручка от времени эксплуатации</p>
-        </div>
-        <div className={styles.works_repair_example}>
-          <h3 className={styles.works_repair_example_title}>После ремонта</h3>
-          <img src={example2After} alt="After repair boat" loading="lazy" onClick={() => openModal(example2After)} />
-          <p>Произведён монтаж и вклейка ручки для переноса лодки</p>
-          <br></br>
-          <p className={styles.works_repair_example_price}>Цена ремонта: <strong>от 1000 руб.</strong></p>
-        </div>
-      </div>
-
-      {isModalOpen && (
-              <div className={styles.modal} onClick={closeModal}>
-                <img
-                  src={selectedImage}
-                  alt="Large View"
-                  className={styles.modal_image}
-                />
-                <button className={styles.close_button} onClick={closeModal}>
-                  &times;
-                </button>
-              </div>
-            )}
+      )}
     </div>
   );
 };

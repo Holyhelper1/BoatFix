@@ -1,23 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./button.module.css";
 
-export const Button = ({ ...props }) => {
+export const Button = ({ children, onClick }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.pageYOffset > 200) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
+      setIsVisible(window.pageYOffset <= 200);
     };
 
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -26,8 +19,8 @@ export const Button = ({ ...props }) => {
       style={{ opacity: isVisible ? 1 : 0, transition: "opacity 0.5s" }}
     >
       <div className={styles.link_wrapper}>
-        <button className={styles.link_button} href={props.href} onClick={props.onClick}>
-          {props.children}
+        <button className={styles.link_button} onClick={onClick}>
+          {children}
         </button>
         <div className={styles.icon}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 268.832 268.832">
