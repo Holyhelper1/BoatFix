@@ -44,6 +44,11 @@
   padding: 14px 18px;
   border-radius: var(--radius-sm);
   font-size: 1rem;
+}
+
+.fields textarea {
+  min-height: 110px;
+  max-height: 200px;
   resize: vertical;
 }
 
@@ -120,42 +125,52 @@
   opacity: 0.7;
 }
 
-.file_list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+/* ПРЕВЬЮ ВЫБРАННЫХ ФОТО */
+.preview_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 }
 
-.file_item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 8px 12px;
-  font-size: 0.85rem;
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
+.preview_item {
+  position: relative;
+  aspect-ratio: 1;
   border-radius: var(--radius-sm);
-}
-
-.file_name {
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  border: 1px solid var(--border-color);
 }
 
-.file_item button {
-  display: inline-flex;
+.preview_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.preview_item button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
   align-items: center;
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  font-size: 1.1rem;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
   padding: 0;
+  color: #fff;
+  background-color: rgba(18, 18, 18, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
 }
 
-.file_item button:hover {
-  color: var(--status-danger);
+.preview_item button svg {
+  width: 14px;
+  height: 14px;
+}
+
+.preview_item button:hover {
+  background-color: var(--status-danger);
+  border-color: var(--status-danger);
 }
 
 /* ПРАВАЯ КОЛОНКА */

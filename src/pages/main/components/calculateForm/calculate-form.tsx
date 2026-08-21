@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ChangeEvent, DragEvent, FormEvent } from "react";
 import {
   FiImage,
   FiCheckCircle,
   FiArrowRight,
-  FiXCircle,
+  FiX,
 } from "react-icons/fi";
 import { PhoneInput } from "../../../../components/phone-input/phone-input";
 import { useOrderSubmit } from "../../../../hooks/use-order-submit";
@@ -21,26 +21,59 @@ const CHECKLIST = [
 const MAX_FILE_SIZE_MB = 10;
 const ACCEPTED_TYPES = ["image/jpeg", "image/png"];
 
+interface PreviewItem {
+  file: File;
+  url: string;
+}
+
 export const CalculateForm = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [problem, setProblem] = useState("");
-  const [files, setFiles] = useState<File[]>([]);
+  const [items, setItems] = useState<PreviewItem[]>([]);
   const [dragActive, setDragActive] = useState(false);
   const { submitOrder, isSubmitting, maxImages } = useOrderSubmit();
 
+  useEffect(() => {
+    return () => {
+      setItems((prev) => {
+        prev.forEach((item) => URL.revokeObjectURL(item.url));
+        return [];
+      });
+    };
+  }, []);
+
   const addFiles = (incoming: FileList | File[]) => {
-    const valid = Array.from(incoming).filter(
-      (f) => ACCEPTED_TYPES.includes(f.type) && f.size <= MAX_FILE_SIZE_MB * 1024 * 1024
+    const incomingFiles = Array.from(incoming);
+    const valid = incomingFiles.filter(
+      (f) =>
+        ACCEPTED_TYPES.includes(f.type) &&
+        f.size <= MAX_FILE_SIZE_MB * 1024 * 1024
     );
 
-    if (valid.length < Array.from(incoming).length) {
+    if (valid.length < incomingFiles.length) {
       toast.error(
         `Можно прикрепить только JPG/PNG размером до ${MAX_FILE_SIZE_MB} МБ.`
       );
     }
 
-    setFiles((prev) => [...prev, ...valid].slice(0, maxImages));
+    const freeSlots = maxImages - items.length;
+    if (freeSlots <= 0) {
+      toast.error(`Можно прикрепить не более ${maxImages} изображений.`);
+      return;
+    }
+    if (valid.length > freeSlots) {
+      toast.error(`Можно прикрепить не более ${maxImages} изображений.`);
+    }
+
+    const accepted = valid.slice(0, freeSlots);
+    setItems((prev) => [
+      ...prev,
+      ...accepted.map((file) => ({
+        file,
+        url: URL.createObjectURL(file),
+      })),
+    ]);
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +88,13 @@ export const CalculateForm = () => {
   };
 
   const removeFile = (index: number) => {
-    setFiles((prev) => prev.filter((_, i) => i !== index));
+    URL.revokeObjectURL(items[index].url);
+    setItems((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const clearItems = () => {
+    items.forEach((item) => URL.revokeObjectURL(item.url));
+    setItems([]);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -65,14 +104,14 @@ export const CalculateForm = () => {
       name,
       phone,
       message: problem,
-      files,
+      files: items.map((item) => item.file),
     });
 
     if (success) {
       setName("");
       setPhone("");
       setProblem("");
-      setFiles([]);
+      clearItems();
     }
   };
 
@@ -130,7 +169,7 @@ export const CalculateForm = () => {
                   Перетащите файлы сюда или нажмите для выбора
                 </span>
                 <span className={styles.dropzone_formats}>
-                  JPG, PNG до {MAX_FILE_SIZE_MB} МБ
+                  JPG, PNG до {MAX_FILE_SIZE_MB} МБ, до {maxImages} шт.
                 </span>
                 <input
                   type="file"
@@ -141,17 +180,17 @@ export const CalculateForm = () => {
                 />
               </label>
 
-              {files.length > 0 && (
-                <ul className={styles.file_list}>
-                  {files.map((file, i) => (
-                    <li key={`${file.name}-${i}`} className={styles.file_item}>
-                      <span className={styles.file_name}>{file.name}</span>
+              {items.length > 0 && (
+                <ul className={styles.preview_grid}>
+                  {items.map((item, i) => (
+                    <li key={item.url} className={styles.preview_item}>
+                      <img src={item.url} alt={`Фото ${i + 1}`} />
                       <button
                         type="button"
                         onClick={() => removeFile(i)}
-                        aria-label={`Удалить файл ${file.name}`}
+                        aria-label={`Удалить фото ${i + 1}`}
                       >
-                        <FiXCircle aria-hidden="true" />
+                        <FiX aria-hidden="true" />
                       </button>
                     </li>
                   ))}

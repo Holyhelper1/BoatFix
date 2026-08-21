@@ -26,6 +26,10 @@ export const App = () => {
             color: "#ffffff",
             fontFamily: "'Exo 2', system-ui, sans-serif",
           },
+          classNames: {
+            success: "toast-success",
+            error: "toast-error",
+          },
         }}
       />
     </div>

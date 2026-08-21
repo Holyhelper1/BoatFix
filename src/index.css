@@ -200,6 +200,15 @@ ul {
   background-color: var(--primary-accent-hover);
 }
 
+/* УВЕДОМЛЕНИЯ SONNER (в стиле сайта) */
+.toast-success {
+  border-color: rgba(126, 193, 66, 0.45) !important;
+}
+
+.toast-error {
+  border-color: rgba(239, 35, 60, 0.45) !important;
+}
+
 /* ДОСТУПНОСТЬ */
 @media (prefers-reduced-motion: reduce) {
   *,
