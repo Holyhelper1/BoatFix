@@ -1,7 +1,12 @@
-import { useState, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import styles from "./button.module.css";
 
-export const Button = ({ children, onClick }) => {
+interface ButtonProps {
+  children: ReactNode;
+  onClick?: () => void;
+}
+
+export const Button = ({ children, onClick }: ButtonProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {

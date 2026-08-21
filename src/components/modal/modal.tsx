@@ -1,6 +1,12 @@
 import styles from "./modal.module.css";
 
-export const Modal = ({ onClose, errorMessage, successMessage }) => {
+interface ModalProps {
+  onClose: () => void;
+  errorMessage: string;
+  successMessage: string;
+}
+
+export const Modal = ({ onClose, errorMessage, successMessage }: ModalProps) => {
   const isSuccess = !!successMessage && !errorMessage;
 
   return (

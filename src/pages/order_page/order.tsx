@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 import styles from "./order.module.css";
 import cloudinaryConfig from "../../cloudinaryConfig";
@@ -10,40 +10,33 @@ import {
 } from "firebase/firestore";
 import toolsImg from "../../image/toolsImg.jpg";
 import { UploadButton } from "../../components";
-import MaskedInput from "react-text-mask";
+import { PhoneInput } from "../../components/phone-input/phone-input";
 import { Modal } from "../../components/modal/modal";
-
-const PHONE_MASK = [
-  "+", "7", "(", /[0-9]/, /[0-9]/, /[0-9]/, ")", " ",
-  /[0-9]/, /[0-9]/, /[0-9]/, "-",
-  /[0-9]/, /[0-9]/, "-",
-  /[0-9]/, /[0-9]/
-];
 
 export const Order = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [question, setQuestion] = useState("");
-  const [files, setFiles] = useState([]);
-  const [imageUrls, setImageUrls] = useState([]);
+  const [files, setFiles] = useState<File[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
   const db = getFirestore();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
 
     try {
-      const customerImages = [];
+      const customerImages: string[] = [];
       for (const file of files) {
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", cloudinaryConfig.uploadPreset);
+        formData.append("upload_preset", cloudinaryConfig.uploadPreset as string);
 
         const response = await axios.post(
           `https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloudName}/image/upload`,
@@ -80,8 +73,8 @@ export const Order = () => {
     }
   };
 
-  const handleFileChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
 
     if (selectedFiles.length + files.length > 4) {
       alert("Вы можете загрузить не более 4 изображений.");
@@ -95,7 +88,7 @@ export const Order = () => {
     ]);
   };
 
-  const removeImage = (index) => {
+  const removeImage = (index: number) => {
     const newFiles = [...files];
     newFiles.splice(index, 1);
     setFiles(newFiles);
@@ -122,9 +115,7 @@ export const Order = () => {
           </div>
           <div className={styles.formGroup_middle}>
             <div className={styles.form_data}>
-              <MaskedInput
-                mask={PHONE_MASK}
-                placeholder="Тел.: +7(___) ___-__-__"
+              <PhoneInput
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required

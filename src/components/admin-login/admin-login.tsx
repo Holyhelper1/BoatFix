@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./admin-login.module.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -10,17 +10,19 @@ export const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState("password");
+  const [showPassword, setShowPassword] = useState<"password" | "text">(
+    "password"
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);      
-      
-      dispatch({ type: 'LOGIN' });
+      await signInWithEmailAndPassword(auth, email, password);
+
+      dispatch({ type: "LOGIN" });
       navigate("/admin/control-orders");
     } catch (error) {
       console.error("Ошибка входа:", error);
@@ -28,29 +30,28 @@ export const AdminLogin = () => {
     }
   };
 
-   return (
+  return (
     <>
-      {error && <p style={{ color: "red", textAlign: 'center' }}>{error}</p>}
+      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
       <div className={styles.admin_login_wrapper}>
-
-      <form className={styles.loginForm} onSubmit={handleSubmit}>
-        <input
-          className={styles.inputField}
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          className={styles.inputField}
-          type={showPassword}
-          placeholder="Пароль"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <span
+        <form className={styles.loginForm} onSubmit={handleSubmit}>
+          <input
+            className={styles.inputField}
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            className={styles.inputField}
+            type={showPassword}
+            placeholder="Пароль"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <span
             className={styles.passwordToggle}
             onClick={() =>
               setShowPassword(showPassword === "password" ? "text" : "password")
@@ -58,12 +59,9 @@ export const AdminLogin = () => {
           >
             {showPassword === "password" ? "👁" : "👁️"}
           </span>
-        <UploadButton>Войти</UploadButton>
-      </form>
+          <UploadButton>Войти</UploadButton>
+        </form>
       </div>
-      
     </>
   );
-  
 };
-

@@ -1,9 +1,9 @@
-export const getPublicIdFromUrl = (url) => {  
+export const getPublicIdFromUrl = (url: string): string | null => {
   const regex = /([^\/]+)\.(jpg|jpeg|png|gif|heic)$/;
   const match = url.match(regex);
 
   if (match) {
-      return match[1]; 
+    return match[1];
   }
 
   return null;

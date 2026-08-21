@@ -5,7 +5,16 @@ import example2Before from "../../../../image/examples/example2Before.webp";
 import example2After from "../../../../image/examples/example2After.webp";
 import styles from "./works-examples.module.css";
 
-const cases = [
+interface CaseItem {
+  id: number;
+  before: string;
+  after: string;
+  title: string;
+  desc: string;
+  price: string;
+}
+
+const cases: CaseItem[] = [
   {
     id: 1,
     before: example1Before,
@@ -25,7 +34,7 @@ const cases = [
 ];
 
 export const WorksExamples = () => {
-  const [modalImg, setModalImg] = useState(null);
+  const [modalImg, setModalImg] = useState<string | null>(null);
 
   return (
     <div className={styles.container}>
@@ -61,8 +70,15 @@ export const WorksExamples = () => {
 
       {modalImg && (
         <div className={styles.modal} onClick={() => setModalImg(null)}>
-          <img src={modalImg} alt="Полный размер" className={styles.modal_img} />
-          <button className={styles.modal_close} onClick={() => setModalImg(null)}>
+          <img
+            src={modalImg}
+            alt="Полный размер"
+            className={styles.modal_img}
+          />
+          <button
+            className={styles.modal_close}
+            onClick={() => setModalImg(null)}
+          >
             &times;
           </button>
         </div>

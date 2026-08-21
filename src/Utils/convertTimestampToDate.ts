@@ -1,5 +1,7 @@
-export function convertTimestampToDate(timestamp) {
-  if (!timestamp || typeof timestamp.seconds !== 'number') {
+export function convertTimestampToDate(
+  timestamp: { seconds: number; nanoseconds?: number } | null | undefined
+): string {
+  if (!timestamp || typeof timestamp.seconds !== "number") {
     return "Дата неизвестна";
   }
 
@@ -12,5 +14,5 @@ export function convertTimestampToDate(timestamp) {
   const hours = date.getHours();
   const minutes = date.getMinutes();
 
-  return `Дата: ${day}/${month}/${year} Время: ${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+  return `Дата: ${day}/${month}/${year} Время: ${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
 }

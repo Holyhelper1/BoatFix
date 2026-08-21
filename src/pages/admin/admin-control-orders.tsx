@@ -4,15 +4,16 @@ import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { PrivateContent } from "../../components/private/private-content";
 import { convertTimestampToDate } from "../../Utils/convertTimestampToDate";
+import { OrderDoc } from "../../types";
 
 export const AdminControlOrders = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<OrderDoc[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [getNewOrders, setGetNewOrders] = useState(false);
 
-  const openModal = (imageUrl) => {
+  const openModal = (imageUrl: string) => {
     setSelectedImage(imageUrl);
     setModalOpen(true);
   };
@@ -27,9 +28,9 @@ export const AdminControlOrders = () => {
     const fetchOrders = async () => {
       const ordersCollection = collection(db, "orders");
       const ordersSnapshot = await getDocs(ordersCollection);
-      const ordersList = ordersSnapshot.docs.map((doc) => ({
+      const ordersList: OrderDoc[] = ordersSnapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data(),
+        ...(doc.data() as Omit<OrderDoc, "id">),
       }));
       setOrders(ordersList);
       setIsLoading(false);
@@ -37,12 +38,12 @@ export const AdminControlOrders = () => {
     fetchOrders();
   }, [getNewOrders]);
 
-  const handleDelete = async (order) => {
+  const handleDelete = async (order: OrderDoc) => {
     await deleteDoc(doc(db, "orders", order.id));
     setOrders(orders.filter((o) => o.id !== order.id));
   };
 
-  const confirmDelete = (order) => {
+  const confirmDelete = (order: OrderDoc) => {
     if (window.confirm("Вы уверены, что хотите удалить заказ?")) {
       handleDelete(order);
       alert("Заказ успешно удален");
@@ -55,7 +56,9 @@ export const AdminControlOrders = () => {
         {orders.length > 0 ? (
           <div className={styles.admin_control_container}>
             <h2 className={styles.admin_control_tittle}>Активные заказы</h2>
-            {isLoading && <div className={styles.loading}>Загрузка заказов...</div>}
+            {isLoading && (
+              <div className={styles.loading}>Загрузка заказов...</div>
+            )}
             <button
               className={styles.refresh_button}
               onClick={() => setGetNewOrders(!getNewOrders)}
@@ -127,9 +130,16 @@ export const AdminControlOrders = () => {
         ) : (
           <div className={styles.admin_control_empty_container}>
             <div className={styles.admin_control_empty}>
-              <span className={styles.admin_control_empty_icon}>&#128338;</span>
-              <div className={styles.admin_control_empty_title}>Нет активных заказов</div>
-              <p>На данный момент заявки отсутствуют. Новые заказы появятся здесь после отправки клиентами формы на сайте.</p>
+              <span className={styles.admin_control_empty_icon}>
+                &#128338;
+              </span>
+              <div className={styles.admin_control_empty_title}>
+                Нет активных заказов
+              </div>
+              <p>
+                На данный момент заявки отсутствуют. Новые заказы появятся
+                здесь после отправки клиентами формы на сайте.
+              </p>
               <div className={styles.admin_control_empty_sub}>
                 Нажмите «Обновить заказы», чтобы проверить снова
               </div>

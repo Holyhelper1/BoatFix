@@ -5,7 +5,7 @@ const SNOW_ICON = "https://cdn-icons-png.flaticon.com/512/2315/2315309.png";
 const FOG_ICON = "https://cdn-icons-png.flaticon.com/512/2910/2910189.png";
 const DEFAULT_ICON = CLOUDY_ICON;
 
-export const createWeatherIcon = (weatherPhrase) => {
+export const createWeatherIcon = (weatherPhrase: string): string => {
   if (!weatherPhrase) return DEFAULT_ICON;
   if (weatherPhrase.includes("солн")) return SUN_ICON;
   if (weatherPhrase.includes("дожд")) return RAIN_ICON;

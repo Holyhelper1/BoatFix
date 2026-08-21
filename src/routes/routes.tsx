@@ -1,10 +1,16 @@
+import { ReactElement } from "react";
 import { AdminLogin } from "../components/admin-login/admin-login";
 import { Main, Order } from "../pages";
 import { AdminControlOrders } from "../pages/admin/admin-control-orders";
 import { Contacts } from "../pages/contacts/contacts";
 import { NotFound } from "../pages/not-found/not-found";
 
-export const routes = [
+interface AppRoute {
+  path: string;
+  element: ReactElement;
+}
+
+export const routes: AppRoute[] = [
   { path: "/", element: <Main /> },
   { path: "/order", element: <Order /> },
   { path: "/contacts", element: <Contacts /> },
