@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import styles from "./admin-control-orders.module.css";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { PrivateContent } from "../../components/private/private-content";
 import { convertTimestampToDate } from "../../Utils/convertTimestampToDate";
-import { OrderDoc } from "../../types";
+import type { OrderDoc } from "../../types";
 
 export const AdminControlOrders = () => {
   const [isModalOpen, setModalOpen] = useState(false);

@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+﻿import type { ReactNode } from "react";
 import { useSelector } from "react-redux";
 import { Error } from "../error/error";
-import { RootState } from "../../store";
+import type { RootState } from "../../store";
 
 export const PrivateContent = ({ children }: { children: ReactNode }) => {
   const adminIsLogin = useSelector(

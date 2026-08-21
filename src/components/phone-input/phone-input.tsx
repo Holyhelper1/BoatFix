@@ -1,4 +1,4 @@
-import { ChangeEvent, InputHTMLAttributes } from "react";
+﻿import type { ChangeEvent, InputHTMLAttributes } from "react";
 
 export const formatPhone = (value: string): string => {
   const digits = value

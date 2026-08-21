@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import styles from "./weather-block.module.css";
 import { createWeatherIcon } from "./utils/icon-weather";
-import { WeatherData } from "../../types";
+import type { WeatherData } from "../../types";
 
-const WEATHER_API_KEY =
-  process.env.REACT_APP_OPENWEATHER_API_KEY || "acd4f346c669d7400f4dbbeb7f1350e0";
+const WEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 const DEFAULT_CITY = "Tomsk";
 
 interface WeatherApiResponse {

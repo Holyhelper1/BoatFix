@@ -1,13 +1,10 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+﻿import { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import styles from "./order.module.css";
 import cloudinaryConfig from "../../cloudinaryConfig";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp,
-} from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../firebase";
 import toolsImg from "../../image/toolsImg.jpg";
 import { UploadButton } from "../../components";
 import { PhoneInput } from "../../components/phone-input/phone-input";
@@ -23,8 +20,6 @@ export const Order = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-
-  const db = getFirestore();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,5 +1,5 @@
-import { AnyAction } from "redux";
-import { AuthState } from "../types";
+﻿import type { AnyAction } from "redux";
+import type { AuthState } from "../types";
 
 const initialState: AuthState = {
   isAuthenticated: false,

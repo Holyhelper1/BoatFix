@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+﻿import type { ReactElement } from "react";
 import { AdminLogin } from "../components/admin-login/admin-login";
 import { Main, Order } from "../pages";
 import { AdminControlOrders } from "../pages/admin/admin-control-orders";

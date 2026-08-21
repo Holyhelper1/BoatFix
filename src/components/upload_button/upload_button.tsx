@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from "react";
+﻿import type { ButtonHTMLAttributes } from "react";
 import styles from "./upload_button.module.css";
 
 export const UploadButton = ({
