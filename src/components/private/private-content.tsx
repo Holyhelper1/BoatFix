@@ -4,13 +4,31 @@ import { Error } from "../error/error";
 import type { RootState } from "../../store";
 
 export const PrivateContent = ({ children }: { children: ReactNode }) => {
-  const adminIsLogin = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
+  const { isAuthenticated, isAuthChecking } = useSelector(
+    (state: RootState) => state.auth
   );
-  const accessError = adminIsLogin
-    ? null
-    : "Доступ запрещён, пожалуйста авторизуйтесь!";
-  const error = accessError;
 
-  return error ? <Error>{error}</Error> : <>{children}</>;
+  if (isAuthChecking) {
+    return (
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "60px 24px",
+          color: "#aaaaaa",
+        }}
+        role="status"
+      >
+        Проверяем доступ...
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <Error>Доступ запрещён, пожалуйста авторизуйтесь!</Error>;
+  }
+
+  return <>{children}</>;
 };

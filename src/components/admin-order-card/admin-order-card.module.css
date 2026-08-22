@@ -1,0 +1,379 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* ===== ШАПКА ===== */
+.card_header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.date {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.date svg {
+  width: 16px;
+  height: 16px;
+  color: var(--primary-cyan);
+  flex-shrink: 0;
+}
+
+.order_id {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.badge {
+  margin-left: auto;
+  padding: 5px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge_new {
+  background: rgba(126, 193, 66, 0.12);
+  border: 1px solid rgba(126, 193, 66, 0.5);
+  color: var(--status-new);
+}
+
+.badge_in_progress {
+  background: rgba(255, 183, 3, 0.1);
+  border: 1px solid rgba(255, 183, 3, 0.45);
+  color: var(--status-process);
+}
+
+.badge_done {
+  background: rgba(0, 160, 233, 0.1);
+  border: 1px solid rgba(0, 160, 233, 0.45);
+  color: var(--primary-cyan);
+}
+
+/* ===== ТЕЛО КАРТОЧКИ ===== */
+.card_body {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(300px, 1.4fr);
+  padding: 20px 24px;
+  gap: 24px;
+}
+
+.client {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-right: 1px solid var(--border-color);
+  padding-right: 24px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.field_label {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.field_value {
+  color: var(--text-main);
+  word-break: break-word;
+}
+
+.description {
+  white-space: pre-line;
+}
+
+.phone {
+  color: var(--text-main);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.phone:hover {
+  color: var(--primary-cyan);
+}
+
+.whatsapp {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  color: #25d366;
+  transition:
+    transform var(--transition),
+    opacity var(--transition);
+}
+
+.whatsapp svg {
+  width: 18px;
+  height: 18px;
+}
+
+.whatsapp:hover {
+  transform: scale(1.15);
+}
+
+.photos_row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.thumbnail {
+  width: 150px;
+  height: 105px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition:
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.thumbnail:hover {
+  border-color: var(--primary-cyan);
+  transform: translateY(-2px);
+}
+
+/* ===== ФУТЕР ===== */
+.card_footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.accept_button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 22px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--primary-accent-green);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.accept_button svg {
+  width: 17px;
+  height: 17px;
+}
+
+.accept_button:hover:not(:disabled) {
+  background: var(--primary-accent-hover);
+}
+
+.accept_button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.status_control {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.status_control_label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.status_select {
+  padding: 11px 38px 11px 16px;
+  background-color: transparent;
+  border: 1px solid var(--border-focus);
+  border-radius: var(--radius-sm);
+  color: var(--primary-cyan);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300a0e9' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  transition:
+    box-shadow var(--transition),
+    border-color var(--transition);
+}
+
+.status_select:hover {
+  box-shadow: 0 0 0 1px var(--border-focus);
+}
+
+.status_select:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.status_select option {
+  background: var(--bg-card);
+  color: var(--text-main);
+  text-transform: none;
+}
+
+.delete_button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--status-danger);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.delete_button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.delete_button:hover {
+  background: rgba(239, 35, 60, 0.08);
+}
+
+.accept_button:focus-visible,
+.delete_button:focus-visible,
+.thumbnail:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ===== МОДАЛКА ПРОСМОТРА ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.modal_image {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+.close_button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.close_button:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.close_button svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width: 900px) {
+  .card_body {
+    grid-template-columns: 1fr;
+  }
+
+  .client {
+    border-right: none;
+    padding-right: 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+@media (max-width: 600px) {
+  .badge {
+    margin-left: 0;
+  }
+
+  .field,
+  .photos_row {
+    grid-template-columns: 1fr;
+  }
+
+  .thumbnail {
+    width: 118px;
+    height: 84px;
+  }
+
+  .accept_button,
+  .status_control {
+    width: 100%;
+  }
+
+  .status_select {
+    width: 100%;
+  }
+}

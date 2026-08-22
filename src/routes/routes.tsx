@@ -1,7 +1,8 @@
 ﻿import type { ReactElement } from "react";
 import { AdminLogin } from "../components/admin-login/admin-login";
 import { Main, Order, Prices } from "../pages";
-import { AdminControlOrders } from "../pages/admin/admin-control-orders";
+import { AdminOrders } from "../pages/admin/admin-orders";
+import { AdminArchive } from "../pages/admin/admin-archive";
 import { Contacts } from "../pages/contacts/contacts";
 import { NotFound } from "../pages/not-found/not-found";
 import { PrivacyPolicy } from "../pages/privacy/privacy";
@@ -19,6 +20,7 @@ export const routes: AppRoute[] = [
   { path: "/prices", element: <Prices /> },
   { path: LINKS.PRIVACY_POLICY, element: <PrivacyPolicy /> },
   { path: "/adminRoom", element: <AdminLogin /> },
-  { path: "/admin/control-orders", element: <AdminControlOrders /> },
+  { path: "/admin/orders", element: <AdminOrders /> },
+  { path: "/admin/archive", element: <AdminArchive /> },
   { path: "*", element: <NotFound /> },
 ];

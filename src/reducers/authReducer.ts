@@ -3,6 +3,7 @@ import type { AuthState } from "../types";
 
 const initialState: AuthState = {
   isAuthenticated: false,
+  isAuthChecking: true,
 };
 
 export const authReducer = (
@@ -11,9 +12,14 @@ export const authReducer = (
 ): AuthState => {
   switch (action.type) {
     case "LOGIN":
-      return { ...state, isAuthenticated: true };
+      return { isAuthenticated: true, isAuthChecking: false };
     case "LOGOUT":
-      return { ...state, isAuthenticated: false };
+      return { isAuthenticated: false, isAuthChecking: false };
+    case "AUTH_STATE_RESOLVED":
+      return {
+        isAuthenticated: action.payload as boolean,
+        isAuthChecking: false,
+      };
     default:
       return state;
   }

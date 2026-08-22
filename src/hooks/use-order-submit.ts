@@ -1,11 +1,33 @@
 import { useState } from "react";
 import axios from "axios";
 import cloudinaryConfig from "../cloudinaryConfig";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import { toast } from "sonner";
 
 const MAX_IMAGES = 4;
+
+const buildOrderNumber = async (): Promise<string> => {
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const dd = String(now.getDate()).padStart(2, "0");
+  const startOfDay = new Date(yyyy, now.getMonth(), now.getDate());
+
+  const snapshot = await getDocs(
+    query(collection(db, "orders"), where("timestamp", ">=", startOfDay))
+  );
+  const seq = String(snapshot.size + 1).padStart(4, "0");
+
+  return `#BF-${yyyy}-${mm}${dd}-${seq}`;
+};
 
 interface OrderPayload {
   name: string;
@@ -44,12 +66,16 @@ export const useOrderSubmit = () => {
         customerImages.push(response.data.secure_url);
       }
 
+      const orderNumber = await buildOrderNumber();
+
       await addDoc(collection(db, "orders"), {
         customerName: name.trim(),
         customerPhone: phone,
         customerEmail: email.trim(),
         customerMessage: message.trim(),
         customerImages,
+        orderNumber,
+        status: "new",
         timestamp: serverTimestamp(),
       });
 

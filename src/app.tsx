@@ -1,10 +1,26 @@
+import { useEffect } from "react";
 import { Route, Routes } from "react-router";
 import { Toaster } from "sonner";
+import { onAuthStateChanged } from "firebase/auth";
 import style from "./app.module.css";
 import { Footer, Header } from "./components";
 import { routes } from "./routes/routes";
+import { auth } from "./firebase";
+import { useDispatch } from "react-redux";
 
 export const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      dispatch({
+        type: "AUTH_STATE_RESOLVED",
+        payload: Boolean(user),
+      });
+    });
+    return () => unsubscribe();
+  }, [dispatch]);
+
   return (
     <div className={style.web_container}>
       <Header />

@@ -32,7 +32,7 @@ export const AdminLogin = () => {
       await signInWithEmailAndPassword(auth, email, password);
 
       dispatch({ type: "LOGIN" });
-      navigate("/admin/control-orders");
+      navigate("/admin/orders");
     } catch (error) {
       console.error("Ошибка входа:", error);
       setError("Не удалось войти. Проверьте ваши учетные данные.");
