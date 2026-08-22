@@ -1,21 +1,26 @@
-.error_container{
-    height: 100vh;
-    padding-top: 20px;
-}
-.error {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin: 0 auto;
-    height: 80px;
-    color: red;
-    font-size: 20px;
-    font-weight: bold;
-    background-color: aliceblue;
-    border-radius: 20px;
-    width: 60%;
-    padding-top: 20px;
-    /* padding-bottom: 230px; */
+.error_container {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
 }
 
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 28px 36px;
+  color: var(--color-danger);
+  font-size: 1.1rem;
+  font-weight: 500;
+  background: rgba(231, 76, 60, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-md);
+  max-width: 500px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(231, 76, 60, 0.2);
+  line-height: 1.5;
+}
