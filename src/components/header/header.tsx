@@ -9,7 +9,8 @@ import { CONTACTS, SOCIAL_LINKS } from "../../Constants/contacts";
 
 const NAV_ITEMS = [
   { label: "Главная", to: LINKS.MAIN },
-  { label: "До / После", to: `${LINKS.MAIN}#examples` },
+  // { label: "До / После", to: `${LINKS.MAIN}#examples` },
+  { label: "Оставить заявку", to: LINKS.ORDER },
   { label: "Цены", to: LINKS.PRICES },
   { label: "Контакты", to: LINKS.CONTACTS },
 ];
