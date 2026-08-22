@@ -1,74 +1,214 @@
-.admin_login_wrapper {
+.wrapper {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 40px 24px;
 }
 
-.loginForm {
-  position: relative;
+.card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border-radius: var(--radius-md);
-  font-family: var(--font-primary);
   width: 100%;
   max-width: 400px;
-  background: var(--color-bg-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 36px 28px;
-  box-shadow: var(--shadow-lg);
-  border: var(--glass-border);
-  gap: 16px;
+  padding: 32px 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
 }
 
-.inputField {
-  width: 100%;
-  padding: 12px 14px;
-  border: var(--glass-border);
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  font-family: var(--font-primary);
-  background: rgba(255, 255, 255, 0.05);
-  transition: all var(--transition);
-  color: var(--color-text);
+.icon_badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: rgba(0, 160, 233, 0.1);
+  border: 1.5px solid rgba(0, 160, 233, 0.45);
 }
 
-.inputField:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.12);
-  outline: none;
-  background: rgba(255, 255, 255, 0.08);
+.icon_badge svg {
+  width: 24px;
+  height: 24px;
+  color: var(--primary-cyan);
 }
 
-.inputField::placeholder {
-  color: var(--color-text-muted);
+.title {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
 }
 
-.passwordToggle {
+.subtitle {
+  margin: 0 0 24px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ===== ПОЛЯ ===== */
+.field {
+  position: relative;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.field_icon {
   position: absolute;
-  cursor: pointer;
-  top: 108px;
-  right: 36px;
-  font-size: 1.2rem;
-  color: var(--color-text-muted);
-  transition: all var(--transition);
-  user-select: none;
+  left: 14px;
+  top: 13px;
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  pointer-events: none;
 }
 
-.passwordToggle:hover {
-  color: var(--color-accent);
+.field input {
+  width: 100%;
+  padding: 12px 42px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition);
 }
 
-@media (max-width: 768px) {
-  .admin_login_wrapper {
-    height: auto;
-    min-height: 60vh;
-    padding: 40px 16px;
+.field input::placeholder {
+  color: var(--text-muted);
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(0, 160, 233, 0.15);
+}
+
+.toggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: color var(--transition), background-color var(--transition);
+}
+
+.toggle:hover {
+  color: var(--primary-cyan);
+  background: rgba(0, 160, 233, 0.1);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 1px;
+}
+
+.toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ===== ОШИБКА ===== */
+.error_box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--status-danger);
+  background: rgba(239, 35, 60, 0.08);
+  border: 1px solid rgba(239, 35, 60, 0.4);
+  border-radius: var(--radius-sm);
+  animation: login_shake 0.4s ease;
+}
+
+.error_box svg {
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  margin-top: 1px;
+}
+
+/* ===== КНОПКА ===== */
+.submit {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px 24px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--primary-accent-green);
+  border: none;
+  border-radius: var(--radius-md);
+  transition:
+    background-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--primary-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(126, 193, 66, 0.25);
+}
+
+.submit:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.submit:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.submit:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes login_shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20%,
+    60% {
+      transform: translateX(-5px);
+    }
+    40%,
+    80% {
+      transform: translateX(5px);
+    }
   }
-  .loginForm {
+}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 24px 16px;
+  }
+
+  .card {
     padding: 24px 16px;
   }
 }
