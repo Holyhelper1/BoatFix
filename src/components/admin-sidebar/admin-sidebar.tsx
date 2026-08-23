@@ -9,7 +9,6 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { auth } from "../../firebase";
-import logo3 from "../../image/logo3.png";
 import styles from "./admin-sidebar.module.css";
 
 interface AdminSidebarProps {
@@ -34,8 +33,6 @@ export const AdminSidebar = ({ activeSection, newCount }: AdminSidebarProps) => 
   return (
     <aside className={styles.sidebar}>
       <div className={styles.top}>
-        <img src={logo3} alt="BoatFix" className={styles.logo} />
-
         <div className={styles.admin_block}>
           <span className={styles.avatar}>
             <FiUser aria-hidden="true" />

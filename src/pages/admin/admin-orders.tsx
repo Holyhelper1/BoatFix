@@ -12,6 +12,7 @@ import { PrivateContent } from "../../components/private/private-content";
 import { AdminSidebar } from "../../components/admin-sidebar/admin-sidebar";
 import { AdminOrderCard } from "../../components/admin-order-card/admin-order-card";
 import { ConfirmDialog } from "../../components/confirm-dialog/confirm-dialog";
+import { CustomSelect } from "../../components/custom-select/custom-select";
 import {
   FiInbox,
   FiRefreshCw,
@@ -29,32 +30,42 @@ const STATUS_FILTER_OPTIONS: { value: "all" | OrderStatus; label: string }[] = [
 export const AdminOrders = () => {
   const [orders, setOrders] = useState<OrderDoc[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [getNewOrders, setGetNewOrders] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | OrderStatus>("all");
   const [pendingDelete, setPendingDelete] = useState<OrderDoc | null>(null);
 
+  const fetchOrders = async (showToast = false) => {
+    if (showToast) setIsRefreshing(true);
+    try {
+      const ordersCollection = collection(db, "orders");
+      const ordersSnapshot = await getDocs(ordersCollection);
+      const ordersList: OrderDoc[] = ordersSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as Omit<OrderDoc, "id">),
+      }));
+      ordersList.sort((a, b) => {
+        const aSeconds = a.timestamp?.seconds ?? 0;
+        const bSeconds = b.timestamp?.seconds ?? 0;
+        return bSeconds - aSeconds;
+      });
+      setOrders(ordersList);
+      if (showToast) toast.success("Заказы успешно обновлены");
+    } catch {
+      if (showToast) toast.error("Не удалось обновить заказы");
+    } finally {
+      setIsLoading(false);
+      if (showToast) setIsRefreshing(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const ordersCollection = collection(db, "orders");
-        const ordersSnapshot = await getDocs(ordersCollection);
-        const ordersList: OrderDoc[] = ordersSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...(doc.data() as Omit<OrderDoc, "id">),
-        }));
-        ordersList.sort((a, b) => {
-          const aSeconds = a.timestamp?.seconds ?? 0;
-          const bSeconds = b.timestamp?.seconds ?? 0;
-          return bSeconds - aSeconds;
-        });
-        setOrders(ordersList);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchOrders();
-  }, [getNewOrders]);
+  }, []);
+
+  const handleRefresh = () => {
+    fetchOrders(true);
+  };
 
   const handleStatusChange = async (order: OrderDoc, status: OrderStatus) => {
     try {
@@ -91,10 +102,7 @@ export const AdminOrders = () => {
     [orders]
   );
 
-  const newCount = useMemo(
-    () => activeOrders.filter((o) => o.status === "new").length,
-    [activeOrders]
-  );
+  const activeCount = useMemo(() => activeOrders.length, [activeOrders]);
 
   const visibleOrders = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -120,7 +128,7 @@ export const AdminOrders = () => {
   return (
     <PrivateContent>
       <div className={styles.layout}>
-        <AdminSidebar activeSection="orders" newCount={newCount} />
+        <AdminSidebar activeSection="orders" newCount={activeCount} />
 
         <main className={styles.content}>
           <header className={styles.header}>
@@ -130,11 +138,12 @@ export const AdminOrders = () => {
               <button
                 type="button"
                 className={styles.refresh}
-                onClick={() => setGetNewOrders((v) => !v)}
+                onClick={handleRefresh}
+                disabled={isRefreshing || isLoading}
               >
                 <FiRefreshCw
                   className={`${styles.refresh_icon} ${
-                    isLoading ? styles.refresh_spin : ""
+                    isRefreshing ? styles.refresh_spin : ""
                   }`}
                   aria-hidden="true"
                 />
@@ -153,22 +162,16 @@ export const AdminOrders = () => {
                 <FiSearch className={styles.search_icon} aria-hidden="true" />
               </div>
 
-              <label className={styles.filter}>
-                <span className={styles.filter_label}>Фильтр по статусу</span>
-                <select
-                  className={styles.filter_select}
+              <div className={styles.filter}>
+                <CustomSelect
                   value={statusFilter}
-                  onChange={(e) =>
-                    setStatusFilter(e.target.value as "all" | OrderStatus)
+                  options={STATUS_FILTER_OPTIONS}
+                  onChange={(value) =>
+                    setStatusFilter(value as "all" | OrderStatus)
                   }
-                >
-                  {STATUS_FILTER_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
+                  ariaLabel="Фильтр по статусу"
+                />
+              </div>
             </div>
           </header>
 

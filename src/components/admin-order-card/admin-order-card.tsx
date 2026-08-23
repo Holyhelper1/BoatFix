@@ -7,6 +7,7 @@ import {
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import styles from "./admin-order-card.module.css";
+import { CustomSelect } from "../custom-select/custom-select";
 import type { OrderDoc, OrderStatus } from "../../types";
 
 const STATUS_LABELS: Record<OrderStatus, string> = {
@@ -52,8 +53,10 @@ export const AdminOrderCard = ({
   onDelete,
 }: AdminOrderCardProps) => {
   const [previewImage, setPreviewImage] = useState("");
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   const status: OrderStatus = order.status ?? "new";
+  const isLongDescription = order.customerMessage.length > 140;
 
   useEffect(() => {
     if (!previewImage) return;
@@ -76,6 +79,7 @@ export const AdminOrderCard = ({
         </span>
         <span className={styles.order_id}>ID заказа: {displayId}</span>
         <span className={`${styles.badge} ${styles[`badge_${status}`]}`}>
+          <span className={styles.badge_dot} aria-hidden="true" />
           {STATUS_LABELS[status]}
         </span>
       </div>
@@ -121,10 +125,29 @@ export const AdminOrderCard = ({
         <div className={styles.details}>
           <p className={styles.field}>
             <span className={styles.field_label}>Описание:</span>
-            <span
-              className={`${styles.field_value} ${styles.description}`}
-            >
-              {order.customerMessage}
+            <span className={styles.field_value}>
+              <span
+                className={`${styles.description} ${
+                  !isDescriptionExpanded && isLongDescription
+                    ? styles.description_clamped
+                    : ""
+                }`}
+              >
+                {order.customerMessage}
+              </span>
+              {isLongDescription && (
+                <button
+                  type="button"
+                  className={styles.description_toggle}
+                  onClick={() =>
+                    setIsDescriptionExpanded((prev) => !prev)
+                  }
+                >
+                  {isDescriptionExpanded
+                    ? "Свернуть"
+                    : "Показать полностью"}
+                </button>
+              )}
             </span>
           </p>
           {order.customerImages.length > 0 && (
@@ -160,22 +183,18 @@ export const AdminOrderCard = ({
           </button>
         )}
 
-        <label className={styles.status_control}>
-          <span className={styles.status_control_label}>Изменить статус</span>
-          <select
-            className={styles.status_select}
+        <div className={styles.status_control}>
+          <CustomSelect
             value={status}
-            onChange={(e) =>
-              onStatusChange(order, e.target.value as OrderStatus)
-            }
-          >
-            {STATUS_OPTIONS.map((option) => (
-              <option key={option} value={option}>
-                {STATUS_LABELS[option]}
-              </option>
-            ))}
-          </select>
-        </label>
+            options={STATUS_OPTIONS.map((option) => ({
+              value: option,
+              label: STATUS_LABELS[option],
+            }))}
+            onChange={(newStatus) => onStatusChange(order, newStatus)}
+            variant="outline"
+            ariaLabel="Изменить статус"
+          />
+        </div>
 
         <button
           type="button"

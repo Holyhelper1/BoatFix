@@ -1,0 +1,121 @@
+.select {
+  display: inline-flex;
+  min-width: 190px;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 14px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition);
+}
+
+.trigger:hover {
+  border-color: var(--primary-cyan);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.trigger_open {
+  border-color: var(--primary-cyan);
+  box-shadow: 0 0 0 1px var(--border-focus);
+}
+
+.chevron {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition:
+    transform var(--transition),
+    color var(--transition);
+}
+
+.trigger_open .chevron,
+.trigger:hover .chevron {
+  color: var(--primary-cyan);
+}
+
+.chevron_open {
+  transform: rotate(180deg);
+}
+
+/* ===== ВАРИАНТ "OUTLINE" (смена статуса в карточке) ===== */
+.outline .trigger {
+  background-color: transparent;
+  border-color: var(--border-focus);
+  color: var(--primary-cyan);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 11px 16px;
+}
+
+.outline .chevron {
+  color: var(--primary-cyan);
+}
+
+/* ===== ВЫПАДАЮЩИЙ СПИСОК (портал fixed — не толкает карточку) ===== */
+.list {
+  position: fixed;
+  z-index: 9999;
+  max-height: 260px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  overflow-y: auto;
+  background: #161616;
+  border: 1px solid rgba(0, 160, 233, 0.35);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: var(--text-main);
+  font-size: 0.88rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.option_active {
+  background: rgba(0, 160, 233, 0.14);
+  color: var(--primary-cyan);
+}
+
+.option_selected {
+  color: var(--primary-cyan);
+  font-weight: 600;
+}
+
+.check {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--primary-cyan);
+  box-shadow: 0 0 8px rgba(0, 160, 233, 0.8);
+}

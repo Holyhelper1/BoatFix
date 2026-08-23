@@ -37,10 +37,11 @@ export const App = () => {
         position="top-right"
         toastOptions={{
           style: {
-            background: "#1a1a1a",
-            border: "1px solid #2a2a2a",
+            background: "#1e1e1e",
+            border: "1px solid rgba(0, 160, 233, 0.25)",
             color: "#ffffff",
             fontFamily: "'Exo 2', system-ui, sans-serif",
+            opacity: 1,
           },
           classNames: {
             success: "toast-success",

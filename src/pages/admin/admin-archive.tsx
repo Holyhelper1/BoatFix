@@ -19,39 +19,48 @@ import type { OrderDoc, OrderStatus } from "../../types";
 export const AdminArchive = () => {
   const [orders, setOrders] = useState<OrderDoc[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [getNewOrders, setGetNewOrders] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [pendingDelete, setPendingDelete] = useState<OrderDoc | null>(null);
 
+  const fetchOrders = async (showToast = false) => {
+    if (showToast) setIsRefreshing(true);
+    try {
+      const ordersCollection = collection(db, "orders");
+      const ordersSnapshot = await getDocs(ordersCollection);
+      const ordersList: OrderDoc[] = ordersSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as Omit<OrderDoc, "id">),
+      }));
+      ordersList.sort((a, b) => {
+        const aSeconds = a.timestamp?.seconds ?? 0;
+        const bSeconds = b.timestamp?.seconds ?? 0;
+        return bSeconds - aSeconds;
+      });
+      setOrders(ordersList);
+      if (showToast) toast.success("Архив успешно обновлён");
+    } catch {
+      if (showToast) toast.error("Не удалось обновить архив");
+    } finally {
+      setIsLoading(false);
+      if (showToast) setIsRefreshing(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const ordersCollection = collection(db, "orders");
-        const ordersSnapshot = await getDocs(ordersCollection);
-        const ordersList: OrderDoc[] = ordersSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...(doc.data() as Omit<OrderDoc, "id">),
-        }));
-        ordersList.sort((a, b) => {
-          const aSeconds = a.timestamp?.seconds ?? 0;
-          const bSeconds = b.timestamp?.seconds ?? 0;
-          return bSeconds - aSeconds;
-        });
-        setOrders(ordersList);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchOrders();
-  }, [getNewOrders]);
+  }, []);
+
+  const handleRefresh = () => {
+    fetchOrders(true);
+  };
 
   const doneOrders = useMemo(
     () => orders.filter((o) => o.status === "done"),
     [orders]
   );
 
-  const newCount = useMemo(
-    () =>
-      orders.filter((o) => o.status === "new").length,
+  const activeCount = useMemo(
+    () => orders.filter((o) => o.status !== "done").length,
     [orders]
   );
 
@@ -88,7 +97,7 @@ export const AdminArchive = () => {
   return (
     <PrivateContent>
       <div className={styles.layout}>
-        <AdminSidebar activeSection="archive" newCount={newCount} />
+        <AdminSidebar activeSection="archive" newCount={activeCount} />
 
         <main className={styles.content}>
           <header className={styles.header}>
@@ -98,11 +107,12 @@ export const AdminArchive = () => {
               <button
                 type="button"
                 className={styles.refresh}
-                onClick={() => setGetNewOrders((v) => !v)}
+                onClick={handleRefresh}
+                disabled={isRefreshing || isLoading}
               >
                 <FiRefreshCw
                   className={`${styles.refresh_icon} ${
-                    isLoading ? styles.refresh_spin : ""
+                    isRefreshing ? styles.refresh_spin : ""
                   }`}
                   aria-hidden="true"
                 />
