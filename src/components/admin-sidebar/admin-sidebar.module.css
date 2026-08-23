@@ -220,3 +220,43 @@
     white-space: nowrap;
   }
 }
+
+@media (max-width: 930px) {
+  .sidebar {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  .top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .admin_block {
+    display: flex;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 16px;
+    overflow-x: visible;
+    flex: 1;
+  }
+
+  .item {
+    width: 100%;
+    white-space: normal;
+  }
+
+  .logout {
+    width: 100%;
+    margin-top: 16px;
+    white-space: normal;
+  }
+}
