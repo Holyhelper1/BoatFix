@@ -1,0 +1,45 @@
+.header {
+  margin-bottom: 40px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  text-transform: uppercase;
+}
+
+.dash {
+  width: 36px;
+  height: 2px;
+  background-color: var(--primary-cyan);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.dash::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  width: 10px;
+  height: 2px;
+  background-color: var(--primary-cyan);
+}
+
+.dash:first-child::before {
+  right: -12px;
+}
+
+.dash:last-child::before {
+  left: -12px;
+}
+
+.subtitle {
+  margin-top: 10px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1rem;
+}

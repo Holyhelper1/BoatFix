@@ -1,0 +1,126 @@
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.box {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.consent:hover .box {
+  border-color: var(--primary-accent-green);
+}
+
+.checkmark {
+  width: 13px;
+  height: 13px;
+  color: var(--text-dark);
+}
+
+.checkmark_path {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 0.25s ease 0s;
+}
+
+.input:checked + .box {
+  background: var(--primary-accent-green);
+  border-color: var(--primary-accent-green);
+}
+
+.input:checked + .box .checkmark_path {
+  stroke-dashoffset: 0;
+  transition-delay: 0.05s;
+}
+
+.input:focus-visible + .box {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(0, 160, 233, 0.25);
+}
+
+.input:checked:focus-visible + .box {
+  border-color: var(--primary-accent-hover);
+  box-shadow: 0 0 0 3px rgba(126, 193, 66, 0.3);
+}
+
+.consent:active .box {
+  transform: scale(0.9);
+}
+
+.text {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.link {
+  color: var(--primary-cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.link:hover {
+  color: #33b6f5;
+}
+
+/* СОСТОЯНИЕ ОШИБКИ */
+.consent_error {
+  animation: consent_shake 0.4s ease;
+}
+
+.consent_error .box {
+  border-color: var(--status-danger);
+}
+
+.consent_error .text {
+  color: var(--status-danger);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes consent_shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20%,
+    60% {
+      transform: translateX(-5px);
+    }
+    40%,
+    80% {
+      transform: translateX(5px);
+    }
+  }
+}

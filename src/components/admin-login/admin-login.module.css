@@ -1,59 +1,214 @@
-@font-face {
-    font-family: jura;
-    src: url("../../fonts/jura/Jura-Regular.ttf");
-  }
-  .admin_login_wrapper{
-    height: 100vh;
-  }
-.loginForm {
+.wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  padding: 32px 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.icon_badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: rgba(0, 160, 233, 0.1);
+  border: 1.5px solid rgba(0, 160, 233, 0.45);
+}
+
+.icon_badge svg {
+  width: 24px;
+  height: 24px;
+  color: var(--primary-cyan);
+}
+
+.title {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  margin: 0 0 24px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ===== ПОЛЯ ===== */
+.field {
   position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    border-radius: 10px; 
-    font-family: jura;
-    max-width: 400px;
-    background-color: #66cde7ad; 
-    margin: 0 auto; 
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.459); 
+  display: block;
+  margin-bottom: 14px;
+}
+
+.field_icon {
+  position: absolute;
+  left: 14px;
+  top: 13px;
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.field input {
+  width: 100%;
+  padding: 12px 42px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition);
+}
+
+.field input::placeholder {
+  color: var(--text-muted);
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(0, 160, 233, 0.15);
+}
+
+.toggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: color var(--transition), background-color var(--transition);
+}
+
+.toggle:hover {
+  color: var(--primary-cyan);
+  background: rgba(0, 160, 233, 0.1);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 1px;
+}
+
+.toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ===== ОШИБКА ===== */
+.error_box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--status-danger);
+  background: rgba(239, 35, 60, 0.08);
+  border: 1px solid rgba(239, 35, 60, 0.4);
+  border-radius: var(--radius-sm);
+  animation: login_shake 0.4s ease;
+}
+
+.error_box svg {
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  margin-top: 1px;
+}
+
+/* ===== КНОПКА ===== */
+.submit {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px 24px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--primary-accent-green);
+  border: none;
+  border-radius: var(--radius-md);
+  transition:
+    background-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--primary-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(126, 193, 66, 0.25);
+}
+
+.submit:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.submit:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.submit:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes login_shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20%,
+    60% {
+      transform: translateX(-5px);
+    }
+    40%,
+    80% {
+      transform: translateX(5px);
+    }
   }
-  
-  .inputField {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 3px; 
-    font-size: 16px;
-  }
-  
-  .inputField:focus {
-    border-color: #00ff9d;
-    outline: none;
+}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 24px 16px;
   }
 
-  .passwordToggle {
-    position: absolute;
-    display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
-    top: 93px;
-    right: 30px;
-    font-size: 22px;
-    color: #626263ad;
-    width: 100px;
-  }
-
-@media (max-width: 768px) {
-  .admin_login_wrapper{
-    height: auto;
-  }
-  .loginForm {
-    margin-top: 10px;
-    height: 150px;
-    margin-bottom: 200px;
+  .card {
+    padding: 24px 16px;
   }
 }
