@@ -1,10 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import styles from "./admin-orders.module.css";
 import {
-  collection,
   deleteDoc,
   doc,
-  getDocs,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -12,53 +10,30 @@ import { PrivateContent } from "../../components/private/private-content";
 import { AdminSidebar } from "../../components/admin-sidebar/admin-sidebar";
 import { AdminOrderCard } from "../../components/admin-order-card/admin-order-card";
 import { ConfirmDialog } from "../../components/confirm-dialog/confirm-dialog";
+import { useOrdersPoller } from "../../hooks/use-orders-poller";
 import { FiArchive, FiRefreshCw } from "react-icons/fi";
 import { toast } from "sonner";
 import type { OrderDoc, OrderStatus } from "../../types";
 
 export const AdminArchive = () => {
-  const [orders, setOrders] = useState<OrderDoc[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [getNewOrders, setGetNewOrders] = useState(false);
+  const { orders, isLoading, isRefreshing, unseenCount, refresh, updateOrders } =
+    useOrdersPoller("archive");
   const [pendingDelete, setPendingDelete] = useState<OrderDoc | null>(null);
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const ordersCollection = collection(db, "orders");
-        const ordersSnapshot = await getDocs(ordersCollection);
-        const ordersList: OrderDoc[] = ordersSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...(doc.data() as Omit<OrderDoc, "id">),
-        }));
-        ordersList.sort((a, b) => {
-          const aSeconds = a.timestamp?.seconds ?? 0;
-          const bSeconds = b.timestamp?.seconds ?? 0;
-          return bSeconds - aSeconds;
-        });
-        setOrders(ordersList);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchOrders();
-  }, [getNewOrders]);
 
   const doneOrders = useMemo(
     () => orders.filter((o) => o.status === "done"),
     [orders]
   );
 
-  const newCount = useMemo(
-    () =>
-      orders.filter((o) => o.status === "new").length,
+  const activeCount = useMemo(
+    () => orders.filter((o) => o.status !== "done").length,
     [orders]
   );
 
   const handleStatusChange = async (order: OrderDoc, status: OrderStatus) => {
     try {
       await updateDoc(doc(db, "orders", order.id), { status });
-      setOrders((prev) =>
+      updateOrders((prev) =>
         prev.map((o) => (o.id === order.id ? { ...o, status } : o))
       );
       toast.success(
@@ -74,7 +49,7 @@ export const AdminArchive = () => {
   const handleDelete = async (order: OrderDoc) => {
     try {
       await deleteDoc(doc(db, "orders", order.id));
-      setOrders((prev) => prev.filter((o) => o.id !== order.id));
+      updateOrders((prev) => prev.filter((o) => o.id !== order.id));
       toast.success("Заявка успешно удалена");
     } catch {
       toast.error("Не удалось удалить заявку. Проверьте правила Firestore.");
@@ -88,7 +63,11 @@ export const AdminArchive = () => {
   return (
     <PrivateContent>
       <div className={styles.layout}>
-        <AdminSidebar activeSection="archive" newCount={newCount} />
+        <AdminSidebar
+          activeSection="archive"
+          activeCount={activeCount}
+          unseenCount={unseenCount}
+        />
 
         <main className={styles.content}>
           <header className={styles.header}>
@@ -98,11 +77,12 @@ export const AdminArchive = () => {
               <button
                 type="button"
                 className={styles.refresh}
-                onClick={() => setGetNewOrders((v) => !v)}
+                onClick={() => refresh("Архив успешно обновлён")}
+                disabled={isRefreshing || isLoading}
               >
                 <FiRefreshCw
                   className={`${styles.refresh_icon} ${
-                    isLoading ? styles.refresh_spin : ""
+                    isRefreshing ? styles.refresh_spin : ""
                   }`}
                   aria-hidden="true"
                 />

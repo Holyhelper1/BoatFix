@@ -1,10 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import styles from "./admin-orders.module.css";
 import {
-  collection,
   deleteDoc,
   doc,
-  getDocs,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -12,6 +10,8 @@ import { PrivateContent } from "../../components/private/private-content";
 import { AdminSidebar } from "../../components/admin-sidebar/admin-sidebar";
 import { AdminOrderCard } from "../../components/admin-order-card/admin-order-card";
 import { ConfirmDialog } from "../../components/confirm-dialog/confirm-dialog";
+import { CustomSelect } from "../../components/custom-select/custom-select";
+import { useOrdersPoller } from "../../hooks/use-orders-poller";
 import {
   FiInbox,
   FiRefreshCw,
@@ -27,39 +27,16 @@ const STATUS_FILTER_OPTIONS: { value: "all" | OrderStatus; label: string }[] = [
 ];
 
 export const AdminOrders = () => {
-  const [orders, setOrders] = useState<OrderDoc[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [getNewOrders, setGetNewOrders] = useState(false);
+  const { orders, isLoading, isRefreshing, unseenCount, refresh, updateOrders } =
+    useOrdersPoller("orders");
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | OrderStatus>("all");
   const [pendingDelete, setPendingDelete] = useState<OrderDoc | null>(null);
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const ordersCollection = collection(db, "orders");
-        const ordersSnapshot = await getDocs(ordersCollection);
-        const ordersList: OrderDoc[] = ordersSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...(doc.data() as Omit<OrderDoc, "id">),
-        }));
-        ordersList.sort((a, b) => {
-          const aSeconds = a.timestamp?.seconds ?? 0;
-          const bSeconds = b.timestamp?.seconds ?? 0;
-          return bSeconds - aSeconds;
-        });
-        setOrders(ordersList);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchOrders();
-  }, [getNewOrders]);
-
   const handleStatusChange = async (order: OrderDoc, status: OrderStatus) => {
     try {
       await updateDoc(doc(db, "orders", order.id), { status });
-      setOrders((prev) =>
+      updateOrders((prev) =>
         prev.map((o) => (o.id === order.id ? { ...o, status } : o))
       );
       toast.success(
@@ -75,7 +52,7 @@ export const AdminOrders = () => {
   const handleDelete = async (order: OrderDoc) => {
     try {
       await deleteDoc(doc(db, "orders", order.id));
-      setOrders((prev) => prev.filter((o) => o.id !== order.id));
+      updateOrders((prev) => prev.filter((o) => o.id !== order.id));
       toast.success("Заявка успешно удалена");
     } catch {
       toast.error("Не удалось удалить заявку. Проверьте правила Firestore.");
@@ -91,10 +68,7 @@ export const AdminOrders = () => {
     [orders]
   );
 
-  const newCount = useMemo(
-    () => activeOrders.filter((o) => o.status === "new").length,
-    [activeOrders]
-  );
+  const activeCount = useMemo(() => activeOrders.length, [activeOrders]);
 
   const visibleOrders = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -120,7 +94,11 @@ export const AdminOrders = () => {
   return (
     <PrivateContent>
       <div className={styles.layout}>
-        <AdminSidebar activeSection="orders" newCount={newCount} />
+        <AdminSidebar
+          activeSection="orders"
+          activeCount={activeCount}
+          unseenCount={unseenCount}
+        />
 
         <main className={styles.content}>
           <header className={styles.header}>
@@ -130,11 +108,12 @@ export const AdminOrders = () => {
               <button
                 type="button"
                 className={styles.refresh}
-                onClick={() => setGetNewOrders((v) => !v)}
+                onClick={() => refresh("Заказы успешно обновлены")}
+                disabled={isRefreshing || isLoading}
               >
                 <FiRefreshCw
                   className={`${styles.refresh_icon} ${
-                    isLoading ? styles.refresh_spin : ""
+                    isRefreshing ? styles.refresh_spin : ""
                   }`}
                   aria-hidden="true"
                 />
@@ -153,22 +132,16 @@ export const AdminOrders = () => {
                 <FiSearch className={styles.search_icon} aria-hidden="true" />
               </div>
 
-              <label className={styles.filter}>
-                <span className={styles.filter_label}>Фильтр по статусу</span>
-                <select
-                  className={styles.filter_select}
+              <div className={styles.filter}>
+                <CustomSelect
                   value={statusFilter}
-                  onChange={(e) =>
-                    setStatusFilter(e.target.value as "all" | OrderStatus)
+                  options={STATUS_FILTER_OPTIONS}
+                  onChange={(value) =>
+                    setStatusFilter(value as "all" | OrderStatus)
                   }
-                >
-                  {STATUS_FILTER_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
+                  ariaLabel="Фильтр по статусу"
+                />
+              </div>
             </div>
           </header>
 

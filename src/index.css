@@ -179,11 +179,12 @@ ul {
 /* КАСТОМНЫЙ СКРОЛЛБАР */
 * {
   scrollbar-color: var(--primary-accent-green) var(--bg-card);
+  -webkit-tap-highlight-color: transparent; /* Убирает синий фокус на мобильных */
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -192,8 +193,8 @@ ul {
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--primary-accent-green);
-  border-radius: 4px;
-  border: 2px solid var(--bg-card);
+  border-radius: 2px;
+  border: 1px solid var(--bg-card);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -209,13 +210,14 @@ ul {
 }
 
 .toast-success {
-  border-color: rgba(126, 193, 66, 0.55) !important;
+  border-color: rgba(126, 193, 66, 0.65) !important;
   background: linear-gradient(
     to right,
-    rgba(126, 193, 66, 0.12),
-    #1a1a1a 40%
+    rgba(126, 193, 66, 0.18),
+    #1e1e1e 40%
   ) !important;
   box-shadow: inset 3px 0 0 0 var(--primary-accent-green);
+  opacity: 1 !important;
 }
 
 .toast-success [data-icon] {
@@ -223,13 +225,14 @@ ul {
 }
 
 .toast-error {
-  border-color: rgba(239, 35, 60, 0.55) !important;
+  border-color: rgba(239, 35, 60, 0.65) !important;
   background: linear-gradient(
     to right,
-    rgba(239, 35, 60, 0.12),
-    #1a1a1a 40%
+    rgba(239, 35, 60, 0.18),
+    #1e1e1e 40%
   ) !important;
   box-shadow: inset 3px 0 0 0 var(--status-danger);
+  opacity: 1 !important;
 }
 
 .toast-error [data-icon] {
@@ -237,13 +240,14 @@ ul {
 }
 
 .toast-warning {
-  border-color: rgba(255, 183, 3, 0.55) !important;
+  border-color: rgba(255, 183, 3, 0.65) !important;
   background: linear-gradient(
     to right,
-    rgba(255, 183, 3, 0.12),
-    #1a1a1a 40%
+    rgba(255, 183, 3, 0.18),
+    #1e1e1e 40%
   ) !important;
   box-shadow: inset 3px 0 0 0 var(--status-process);
+  opacity: 1 !important;
 }
 
 .toast-warning [data-icon] {
@@ -251,13 +255,14 @@ ul {
 }
 
 .toast-info {
-  border-color: rgba(0, 160, 233, 0.55) !important;
+  border-color: rgba(0, 160, 233, 0.65) !important;
   background: linear-gradient(
     to right,
-    rgba(0, 160, 233, 0.12),
-    #1a1a1a 40%
+    rgba(0, 160, 233, 0.18),
+    #1e1e1e 40%
   ) !important;
   box-shadow: inset 3px 0 0 0 var(--primary-cyan);
+  opacity: 1 !important;
 }
 
 .toast-info [data-icon] {

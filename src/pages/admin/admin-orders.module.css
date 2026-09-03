@@ -55,9 +55,14 @@
     box-shadow var(--transition);
 }
 
-.refresh:hover {
+.refresh:hover:not(:disabled) {
   background: rgba(0, 160, 233, 0.08);
   box-shadow: 0 0 0 1px var(--border-focus);
+}
+
+.refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .refresh:focus-visible {
@@ -125,38 +130,8 @@
 }
 
 /* ===== ФИЛЬТР ===== */
-.filter_label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-
-.filter_select {
-  padding: 11px 38px 11px 14px;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  color: var(--text-main);
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23aaaaaa' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 13px center;
-  transition: border-color var(--transition);
-}
-
-.filter_select:hover {
-  border-color: #3a3a3a;
-}
-
-.filter_select:focus-visible {
-  outline: none;
-  border-color: var(--border-focus);
+.filter {
+  display: inline-flex;
 }
 
 /* ===== СПИСОК ===== */
@@ -268,10 +243,6 @@
   .search {
     flex: 1;
     min-width: 200px;
-  }
-
-  .filter_select {
-    width: 100%;
   }
 
   .filter {

@@ -18,7 +18,7 @@ export const Prices = () => {
           </p>
           <p className={styles.hint}>
             Хотите узнать стоимость ремонта прямо сейчас? Оставьте заявку с
-            фото повреждений — рассчитаем в течение 30 минут.
+            фото повреждений — рассчитаем в течение 1 часа.
           </p>
           <div className={styles.actions}>
             <Link to={LINKS.MAIN} className={styles.btn_secondary}>
