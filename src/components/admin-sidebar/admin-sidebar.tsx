@@ -6,9 +6,9 @@ import {
   FiClipboard,
   FiLogOut,
   FiSettings,
-  FiUser,
 } from "react-icons/fi";
 import { auth } from "../../firebase";
+import avatarImg from "../../image/Avatar.webp";
 import styles from "./admin-sidebar.module.css";
 
 interface AdminSidebarProps {
@@ -35,7 +35,7 @@ export const AdminSidebar = ({ activeSection, newCount }: AdminSidebarProps) => 
       <div className={styles.top}>
         <div className={styles.admin_block}>
           <span className={styles.avatar}>
-            <FiUser aria-hidden="true" />
+            <img src={avatarImg} alt="Аватар администратора" />
           </span>
           <span className={styles.admin_info}>
             <span className={styles.admin_name}>Администратор</span>

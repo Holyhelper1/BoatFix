@@ -1,12 +1,12 @@
-import { ShieldCheck, Droplet, Wrench } from "lucide-react";
+import { ShieldCheck, Droplet, Timer } from "lucide-react";
 import { SectionTitle } from "../section-title/section-title";
 import styles from "./advantages.module.css";
 
 const ADVANTAGES = [
   {
     icon: ShieldCheck,
-    title: "Гарантия 1 год",
-    text: "На все виды ремонтных работ предоставляем гарантию 1 год.",
+    title: "Гарантия 1 месяц",
+    text: "На все виды ремонтных работ предоставляем гарантию 1 месяц, в зависимости от условий эксплуатации.",
   },
   {
     icon: Droplet,
@@ -14,9 +14,9 @@ const ADVANTAGES = [
     text: "Используем только качественные клеи, ткани и комплектующие от проверенных производителей.",
   },
   {
-    icon: Wrench,
-    title: "Качественная сварка",
-    text: "Современное оборудование для сварки ПВХ обеспечивает прочность и герметичность шва.",
+    icon: Timer,
+    title: "Короткие сроки ремонта",
+    text: "Быстро выполняем работы благодаря современному оборудованию и опыту мастеров.",
   },
 ];
 
