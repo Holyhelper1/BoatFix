@@ -180,6 +180,7 @@ ul {
 * {
   scrollbar-color: var(--primary-accent-green) var(--bg-card);
   -webkit-tap-highlight-color: transparent; /* Убирает синий фокус на мобильных */
+  scrollbar-width: thin; 
 }
 
 ::-webkit-scrollbar {
