@@ -1,10 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import styles from "./admin-orders.module.css";
 import {
-  collection,
   deleteDoc,
   doc,
-  getDocs,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -13,6 +11,7 @@ import { AdminSidebar } from "../../components/admin-sidebar/admin-sidebar";
 import { AdminOrderCard } from "../../components/admin-order-card/admin-order-card";
 import { ConfirmDialog } from "../../components/confirm-dialog/confirm-dialog";
 import { CustomSelect } from "../../components/custom-select/custom-select";
+import { useOrdersPoller } from "../../hooks/use-orders-poller";
 import {
   FiInbox,
   FiRefreshCw,
@@ -28,49 +27,16 @@ const STATUS_FILTER_OPTIONS: { value: "all" | OrderStatus; label: string }[] = [
 ];
 
 export const AdminOrders = () => {
-  const [orders, setOrders] = useState<OrderDoc[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const { orders, isLoading, isRefreshing, unseenCount, refresh, updateOrders } =
+    useOrdersPoller("orders");
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | OrderStatus>("all");
   const [pendingDelete, setPendingDelete] = useState<OrderDoc | null>(null);
 
-  const fetchOrders = async (showToast = false) => {
-    if (showToast) setIsRefreshing(true);
-    try {
-      const ordersCollection = collection(db, "orders");
-      const ordersSnapshot = await getDocs(ordersCollection);
-      const ordersList: OrderDoc[] = ordersSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as Omit<OrderDoc, "id">),
-      }));
-      ordersList.sort((a, b) => {
-        const aSeconds = a.timestamp?.seconds ?? 0;
-        const bSeconds = b.timestamp?.seconds ?? 0;
-        return bSeconds - aSeconds;
-      });
-      setOrders(ordersList);
-      if (showToast) toast.success("Заказы успешно обновлены");
-    } catch {
-      if (showToast) toast.error("Не удалось обновить заказы");
-    } finally {
-      setIsLoading(false);
-      if (showToast) setIsRefreshing(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
-  const handleRefresh = () => {
-    fetchOrders(true);
-  };
-
   const handleStatusChange = async (order: OrderDoc, status: OrderStatus) => {
     try {
       await updateDoc(doc(db, "orders", order.id), { status });
-      setOrders((prev) =>
+      updateOrders((prev) =>
         prev.map((o) => (o.id === order.id ? { ...o, status } : o))
       );
       toast.success(
@@ -86,7 +52,7 @@ export const AdminOrders = () => {
   const handleDelete = async (order: OrderDoc) => {
     try {
       await deleteDoc(doc(db, "orders", order.id));
-      setOrders((prev) => prev.filter((o) => o.id !== order.id));
+      updateOrders((prev) => prev.filter((o) => o.id !== order.id));
       toast.success("Заявка успешно удалена");
     } catch {
       toast.error("Не удалось удалить заявку. Проверьте правила Firestore.");
@@ -128,7 +94,11 @@ export const AdminOrders = () => {
   return (
     <PrivateContent>
       <div className={styles.layout}>
-        <AdminSidebar activeSection="orders" newCount={activeCount} />
+        <AdminSidebar
+          activeSection="orders"
+          activeCount={activeCount}
+          unseenCount={unseenCount}
+        />
 
         <main className={styles.content}>
           <header className={styles.header}>
@@ -138,7 +108,7 @@ export const AdminOrders = () => {
               <button
                 type="button"
                 className={styles.refresh}
-                onClick={handleRefresh}
+                onClick={() => refresh("Заказы успешно обновлены")}
                 disabled={isRefreshing || isLoading}
               >
                 <FiRefreshCw
